@@ -238,19 +238,20 @@ input::placeholder, textarea::placeholder{color:#6b6357}
         <div style="font-size:12px; letter-spacing:4px; color:#d29a5a; text-align:center; margin-bottom:8px; font-weight:600">FLORIDINO'S</div>
         <h3 style="font-family:Raleway, sans-serif; font-weight:800; font-size:26px; color:#f8f8f8; text-align:center; margin:0 0 4px">Catering Manager</h3>
         <p style="color:#8f867a; text-align:center; font-size:13px; margin:0 0 26px">Sign in to edit the catering menu</p>
-        <label style="display:block; margin-bottom:14px">
-          <span style="display:block; font-size:12px; color:#8f867a; margin-bottom:6px">Username</span>
-          <input value="{{ loginU }}" onChange="{{ onLoginU }}" type="text" autoComplete="username" placeholder="owner" style="width:100%; box-sizing:border-box; padding:11px 13px; border-radius:8px; background:#241c16; border:1px solid #3a2f25; color:#f8f8f8; font-size:14px; font-family:Inter, sans-serif; outline:none" style-focus="border-color:#d29a5a">
-        </label>
-        <label style="display:block; margin-bottom:14px">
-          <span style="display:block; font-size:12px; color:#8f867a; margin-bottom:6px">Password</span>
-          <input value="{{ loginP }}" onChange="{{ onLoginP }}" onKeyDown="{{ onLoginKey }}" type="password" autoComplete="current-password" placeholder="&#8226;&#8226;&#8226;&#8226;&#8226;&#8226;&#8226;&#8226;" style="width:100%; box-sizing:border-box; padding:11px 13px; border-radius:8px; background:#241c16; border:1px solid #3a2f25; color:#f8f8f8; font-size:14px; font-family:Inter, sans-serif; outline:none" style-focus="border-color:#d29a5a">
-        </label>
-        <sc-if value="{{ loginErr }}" hint-placeholder-val="{{ false }}">
-          <div style="color:#c96a5a; font-size:12.5px; margin-bottom:10px">Incorrect password &mdash; try &#8220;demo&#8221;</div>
+        <sc-if value="{{ showLoginForm }}" hint-placeholder-val="{{ false }}">
+          <label style="display:block; margin-bottom:14px">
+            <span style="display:block; font-size:12px; color:#8f867a; margin-bottom:6px">Email address</span>
+            <input value="{{ loginU }}" onChange="{{ onLoginU }}" onKeyDown="{{ onLoginKey }}" type="email" autoComplete="email" placeholder="you@example.com" style="width:100%; box-sizing:border-box; padding:11px 13px; border-radius:8px; background:#241c16; border:1px solid #3a2f25; color:#f8f8f8; font-size:14px; font-family:Inter, sans-serif; outline:none" style-focus="border-color:#d29a5a">
+          </label>
+          <sc-if value="{{ loginErr }}" hint-placeholder-val="{{ false }}">
+            <div style="color:#c96a5a; font-size:12.5px; margin-bottom:10px">Please enter a valid email address.</div>
+          </sc-if>
+          <button onClick="{{ doLogin }}" style="width:100%; background:#d29a5a; color:#20170a; font-weight:600; border:none; border-radius:8px; padding:12px 16px; font-family:Inter, sans-serif; font-size:14px; cursor:pointer; margin-top:8px" style-hover="background:#f8f8f8">Email me a sign-in link</button>
+          <div style="margin-top:18px; font-size:12px; color:#8f867a; text-align:center; line-height:1.6">Approved staff only. The link arrives by email<br>and signs you in with one tap.</div>
         </sc-if>
-        <button onClick="{{ doLogin }}" style="width:100%; background:#d29a5a; color:#20170a; font-weight:600; border:none; border-radius:8px; padding:12px 16px; font-family:Inter, sans-serif; font-size:14px; cursor:pointer; margin-top:8px" style-hover="background:#f8f8f8">Log in</button>
-        <div style="margin-top:18px; font-size:12px; color:#8f867a; text-align:center; line-height:1.6">Prototype &mdash; any username works.<br>Password: <code style="color:#d29a5a; background:#241c16; padding:1px 6px; border-radius:4px">demo</code></div>
+        <sc-if value="{{ linkSent }}" hint-placeholder-val="{{ false }}">
+          <div style="color:#d1c8bb; font-size:14px; text-align:center; line-height:1.7; margin:6px 0 10px">Check your email. If that address is on the staff list, your sign-in link is on its way. It works once and expires in 15 minutes.</div>
+        </sc-if>
         <div onClick="{{ closeLogin }}" style="margin-top:16px; text-align:center; font-size:12.5px; color:#8f867a; cursor:pointer" style-hover="color:#f8f8f8">Cancel</div>
       </div>
     </div>
@@ -261,9 +262,24 @@ input::placeholder, textarea::placeholder{color:#6b6357}
 <script type="text/x-dc" data-dc-script>
 class Component extends DCLogic {
   state = { cats: null, admin: false, preview: false, showLogin: false, editing: null, menuOpen: false, scrolled: false,
-    fName: '', fPrice: '', fDesc: '', loginU: '', loginP: '', loginErr: false };
+    fName: '', fPrice: '', fDesc: '', loginU: '', loginP: '', loginErr: false, linkSent: false };
   componentDidMount() {
     this._api = 'https://floridinos-api.designshak.workers.dev';
+    const linkTok = (location.hash.match(/login-token=([0-9a-f]{64})/) || [])[1];
+    if (linkTok) {
+      history.replaceState(null, '', location.pathname + location.search);
+      fetch(this._api + '/api/redeem', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ token: linkTok })
+      }).then(r => r.ok ? r.json() : Promise.reject())
+        .then(d => {
+          try { sessionStorage.setItem('floridinos-token', d.token); } catch (e) {}
+          this.setState({ admin: true });
+          window.scrollTo({ top: 0 });
+        })
+        .catch(() => alert('That sign-in link is expired or already used. Request a new one from Staff Login.'));
+    }
     fetch(this._api + '/api/catering')
       .then(r => { if (!r.ok) throw new Error('http ' + r.status); return r.json(); })
       .catch(() => import('./catering-data.js').then(m => m.CATERING))
@@ -308,17 +324,14 @@ class Component extends DCLogic {
     requestAnimationFrame(() => { window.scrollTo(0, y); setTimeout(() => window.scrollTo(0, y), 80); });
   }
   doLogin() {
-    fetch(this._api + '/api/login', {
+    const email = this.state.loginU.trim().toLowerCase();
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { this.setState({ loginErr: true }); return; }
+    fetch(this._api + '/api/request-link', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ username: this.state.loginU.trim(), password: this.state.loginP })
-    }).then(r => r.ok ? r.json() : Promise.reject())
-      .then(d => {
-        try { sessionStorage.setItem('floridinos-token', d.token); } catch (e) {}
-        this.setState({ admin: true, showLogin: false, loginP: '', loginErr: false });
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-      })
-      .catch(() => this.setState({ loginErr: true, loginP: '' }));
+      body: JSON.stringify({ email, page: 'catering' })
+    }).then(() => this.setState({ linkSent: true, loginErr: false }))
+      .catch(() => this.setState({ linkSent: true, loginErr: false }));
   }
   renderVals() {
     const { cats, admin, preview, editing, showLogin } = this.state;
@@ -375,7 +388,8 @@ class Component extends DCLogic {
         const cats2 = this.mutate(m => m[ci].groups[gi].items.splice(ii, 1));
         this.setKeep({ cats: cats2, editing: null });
       },
-      openLogin: () => this.setState({ showLogin: true, loginErr: false }),
+      openLogin: () => this.setState({ showLogin: true, loginErr: false, linkSent: false }),
+      linkSent: this.state.linkSent, showLoginForm: !this.state.linkSent,
       closeLogin: () => this.setState({ showLogin: false }),
       onLoginU: (e) => this.setState({ loginU: e.target.value }),
       onLoginP: (e) => this.setState({ loginP: e.target.value }),
