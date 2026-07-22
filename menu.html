@@ -414,7 +414,13 @@ class Component extends DCLogic {
         color: i === activeTab ? '#130f0c' : '#d29a5a',
         bg: i === activeTab ? '#d29a5a' : 'transparent',
         border: '#d29a5a',
-        select: () => { this.setState({ activeTab: i }); window.scrollTo({ top: 0, behavior: 'smooth' }); }
+        select: () => {
+          this.setState({ activeTab: i });
+          requestAnimationFrame(() => {
+            const first = document.querySelector('div[id][style*="scroll-margin-top"]');
+            if (first) first.scrollIntoView({ behavior: 'smooth' }); else window.scrollTo({ top: 0, behavior: 'smooth' });
+          });
+        }
       })),
       menuOpen: this.state.menuOpen,
       hdrClass: this.state.scrolled ? 'hdr-stuck' : '',
