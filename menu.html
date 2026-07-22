@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Menu — Floridino's Italian Kitchen</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Raleway:wght@600;700;800&family=Inter:wght@200;300;400;500;600&display=swap" rel="stylesheet">
+<style>
+html,body{margin:0;padding:0;background:#130f0c}
+a{color:#d29a5a;text-decoration:none}
+a:hover{color:#f8f8f8}
+::selection{background:#d29a5a;color:#130f0c}
+.m-burger{display:none}
+.m-callbar{display:none}
+.m-mobilehide{display:inline-block}
+header{transition:background .2s}
+.hdr-stuck{background:rgba(19,15,12,0.5) !important; backdrop-filter:blur(10px); animation:hdrDown .35s ease}
+@keyframes hdrDown{from{transform:translateY(-100%)}to{transform:translateY(0)}}
+
+@media (max-width:780px){
+  .m-site{min-width:0 !important}
+  .m-hdr{padding:12px 16px !important; gap:10px !important}
+  .m-logo{height:64px !important; width:106px !important}
+  .m-brand{font-size:14px !important; letter-spacing:0.5px !important}
+  .m-nav{gap:14px !important}
+  .m-nav a{font-size:10px !important; letter-spacing:1.5px !important}
+  .m-hphone{display:none !important}
+  .m-nav{display:none !important}
+  .m-burger{display:flex !important}
+  .m-callbar{display:flex !important}
+  .m-mobilehide{display:none !important}
+  .m-adminbar{bottom:88px !important}
+  .m-site{padding-bottom:60px !important}
+  h1{font-size:40px !important; letter-spacing:2px !important; line-height:1.15 !important}
+  h2{font-size:32px !important; line-height:1.2 !important}
+  section{padding-left:20px !important; padding-right:20px !important}
+  .m-pad{padding-left:20px !important; padding-right:20px !important}
+  .m-1col{grid-template-columns:1fr !important; gap:36px !important}
+  .m-1col > div{justify-self:stretch !important}
+  .m-info > div{justify-self:start !important}
+  .m-btn{display:block !important; width:100% !important; box-sizing:border-box !important; text-align:center !important; padding-left:0 !important; padding-right:0 !important}
+  .m-card{margin:0 !important; padding:44px 22px !important}
+  .m-img{height:300px !important; min-height:0 !important; margin:0 !important}
+  .m-par{background-attachment:scroll !important}
+  .m-wrap{flex-wrap:wrap !important; gap:28px !important}
+  .m-hero{min-height:0 !important; padding-top:120px !important; padding-bottom:70px !important}
+  .m-bighero{height:380px !important}
+  footer{padding-left:20px !important; padding-right:20px !important}
+}
+input::placeholder, textarea::placeholder{color:#6b6357}
+</style>
+</helmet>
+<div class="m-site" style="font-family:Inter, sans-serif; color:#d1c8bb; background:#130f0c; min-width:1100px">
+  <header class="m-hdr {{ hdrClass }}" style="position:fixed; top:0; left:0; right:0; z-index:50; display:flex; align-items:center; justify-content:flex-start; padding:20px 56px; gap:32px">
+    <a href="index.html" style="display:block; position:relative; width:232px; height:66px; flex:none">
+      <img src="assets/floridinos-logo.png" alt="Floridino's Italian Kitchen — Since 1988, From Our Family to Yours" class="m-logo" style="position:absolute; top:0; left:0; height:140px; width:232px; object-fit:contain; z-index:5; filter:drop-shadow(0 3px 0 rgba(248,248,248,0.75))">
+    </a>
+    <nav class="m-nav" style="display:flex; align-items:center; gap:24px; white-space:nowrap; margin-left:auto">
+      <a href="index.html" style="font-size:16px; letter-spacing:1.8px; font-weight:500; color:#f8f8f8; text-shadow:0 1px 4px rgba(0,0,0,0.55)" style-hover="color:#d29a5a; text-decoration:underline; text-underline-offset:8px; text-decoration-thickness:2px; text-decoration-color:#d29a5a">HOME</a>
+      <a href="menu.html" style="font-size:16px; letter-spacing:1.8px; font-weight:600; color:#d29a5a; text-shadow:0 1px 4px rgba(0,0,0,0.55); text-decoration:underline; text-underline-offset:8px; text-decoration-thickness:2px; text-decoration-color:#d29a5a">MENU</a>
+      <a href="catering.html" style="font-size:16px; letter-spacing:1.8px; font-weight:500; color:#f8f8f8; text-shadow:0 1px 4px rgba(0,0,0,0.55)" style-hover="color:#d29a5a; text-decoration:underline; text-underline-offset:8px; text-decoration-thickness:2px; text-decoration-color:#d29a5a">CATERING</a>
+      <a href="contact.html" style="font-size:16px; letter-spacing:1.8px; font-weight:500; color:#f8f8f8; text-shadow:0 1px 4px rgba(0,0,0,0.55)" style-hover="color:#d29a5a; text-decoration:underline; text-underline-offset:8px; text-decoration-thickness:2px; text-decoration-color:#d29a5a">CONTACT US</a>
+    </nav>
+    <a href="tel:+18633532670" class="m-hphone" style="font-size:17px; letter-spacing:0.8px; font-weight:700; color:#f8f8f8; border:1.5px solid #f8f8f8; padding:13px 24px; white-space:nowrap" style-hover="color:#130f0c; background:#d29a5a; border-color:#d29a5a">863-353-2670</a>
+    <div class="m-burger" onClick="{{ toggleMenu }}" style="display:none; flex-direction:column; gap:5px; cursor:pointer; padding:6px 2px; margin-left:auto">
+      <span style="width:24px; height:2px; background:#f8f8f8"></span>
+      <span style="width:24px; height:2px; background:#f8f8f8"></span>
+      <span style="width:24px; height:2px; background:#f8f8f8"></span>
+    </div>
+  </header>
+  <sc-if value="{{ menuOpen }}" hint-placeholder-val="{{ false }}">
+    <div style="position:fixed; top:64px; left:0; right:0; z-index:45; background:#191310; border-bottom:1px solid rgba(210,154,90,0.3); display:grid">
+      <a href="index.html" style="font-size:19px; letter-spacing:2.5px; font-weight:600; color:#f8f8f8; padding:26px 24px; border-bottom:1px solid rgba(210,154,90,0.12)">HOME</a>
+      <a href="menu.html" style="font-size:19px; letter-spacing:2.5px; font-weight:600; color:#f8f8f8; padding:26px 24px; border-bottom:1px solid rgba(210,154,90,0.12)">MENU</a>
+      <a href="catering.html" style="font-size:19px; letter-spacing:2.5px; font-weight:600; color:#f8f8f8; padding:26px 24px; border-bottom:1px solid rgba(210,154,90,0.12)">CATERING</a>
+      <a href="contact.html" style="font-size:19px; letter-spacing:2.5px; font-weight:600; color:#f8f8f8; padding:26px 24px">CONTACT US</a>
+    </div>
+  </sc-if>
+  <a href="tel:+18633532670" class="m-callbar" style="display:none; align-items:center; justify-content:center; gap:10px; position:fixed; left:0; right:0; bottom:0; z-index:65; background:#d29a5a; color:#130f0c; text-align:center; font-weight:700; letter-spacing:3px; font-size:15px; padding:19px 0">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M6.6 3h3l1.5 4.5-2.2 1.5a12 12 0 0 0 5.6 5.6l1.5-2.2L20.5 14v3.4a2 2 0 0 1-2.2 2A16.5 16.5 0 0 1 3.6 4.7 2 2 0 0 1 6.6 3z"></path></svg>
+    <span>CALL 863-353-2670</span>
+  </a>
+
+  <section data-screen-label="Menu Hero" class="m-par m-bighero" style="position:relative; height:560px; display:flex; align-items:center; justify-content:center; overflow:hidden; background-image:url('assets/menu-header.jpg'); background-size:cover; background-position:center; background-attachment:fixed">
+    <h1 style="position:relative; font-family:Raleway, sans-serif; font-weight:800; font-size:74px; letter-spacing:6px; color:#f8f8f8; margin:0; text-shadow:0 2px 30px rgba(0,0,0,0.55)">OUR MENU</h1>
+  </section>
+
+  <sc-if value="{{ isDesktop }}" hint-placeholder-val="{{ true }}">
+    <nav style="position:sticky; top:106px; z-index:30; display:flex; gap:8px; justify-content:center; background:rgba(19,15,12,0.95); backdrop-filter:blur(8px); border-bottom:1px solid rgba(210,154,90,0.2); padding:18px 24px">
+      <sc-for list="{{ tabs }}" as="tab" hint-placeholder-count="4">
+        <div onClick="{{ tab.select }}" style="font-size:13px; letter-spacing:2px; font-weight:600; text-transform:uppercase; padding:12px 26px; cursor:pointer; color:{{ tab.color }}; background:{{ tab.bg }}; border:1px solid {{ tab.border }}">{{ tab.label }}</div>
+      </sc-for>
+    </nav>
+  </sc-if>
+
+  <div data-screen-label="Menu List">
+    <sc-if value="{{ isDesktop }}" hint-placeholder-val="{{ true }}">
+    <sc-for list="{{ cats }}" as="cat" hint-placeholder-count="5">
+      <div id="{{ cat.slug }}" style="scroll-margin-top:150px">
+        <sc-if value="{{ cat.image }}" hint-placeholder-val="{{ false }}">
+          <div style="height:480px; background-image:url('{{ cat.image }}'); background-size:cover; background-position:center; background-attachment:fixed; margin-bottom:-140px"></div>
+        </sc-if>
+        <div style="max-width:1295px; margin:0 auto; background:#130f0c; padding:100px 0 0; position:relative">
+          <div style="text-align:center">
+            <h2 style="font-family:Raleway, sans-serif; font-weight:800; font-size:56px; line-height:1; color:#f8f8f8; margin:5px 0 10px; text-transform:capitalize">{{ cat.title }}</h2>
+            <div style="display:flex; align-items:center; justify-content:center; gap:0; margin-top:15px; padding-bottom:5px">
+              <span style="width:130px; height:2px; background:rgba(210,154,90,0.6)"></span>
+              <span style="color:#d29a5a; font-size:15px; padding:0 14px">&#10033;</span>
+              <span style="width:130px; height:2px; background:rgba(210,154,90,0.6)"></span>
+            </div>
+            <sc-if value="{{ cat.note }}" hint-placeholder-val="{{ false }}">
+              <div style="font-size:14px; font-weight:300; color:#8f867a; max-width:560px; margin:22px auto 0; line-height:1.6; padding:0 20px">{{ cat.note }}</div>
+            </sc-if>
+          </div>
+          <div style="display:grid; grid-template-columns:1fr 1fr; gap:0 90px; padding:80px 67px 60px; align-items:start">
+            <sc-for list="{{ cat.items }}" as="it" hint-placeholder-count="4">
+              <div onClick="{{ it.open }}" style="padding:0 10px 40px; position:relative; border-radius:6px">
+                <sc-if value="{{ it.isEditing }}" hint-placeholder-val="{{ false }}">
+                  <div style="background:#1a1512; border:1px solid rgba(210,154,90,0.5); border-radius:8px; padding:18px; margin:-10px 0 10px">
+                    <div style="display:flex; gap:12px; margin-bottom:12px">
+                      <input value="{{ fName }}" onChange="{{ onName }}" placeholder="Item name" aria-label="Item name" style="flex:1; background:#241c16; border:1px solid #3a2f25; color:#f8f8f8; padding:11px 13px; border-radius:6px; font-family:Raleway, sans-serif; font-size:17px; font-weight:600; outline:none" style-focus="border-color:#d29a5a">
+                      <input value="{{ fPrice }}" onChange="{{ onPrice }}" placeholder="$0.00" aria-label="Price" style="width:110px; background:#241c16; border:1px solid #3a2f25; color:#f8f8f8; padding:11px 13px; border-radius:6px; font-size:15px; text-align:right; outline:none" style-focus="border-color:#d29a5a">
+                    </div>
+                    <textarea value="{{ fDesc }}" onChange="{{ onDesc }}" rows="3" placeholder="Description" aria-label="Description" style="width:100%; box-sizing:border-box; background:#241c16; border:1px solid #3a2f25; color:#d1c8bb; padding:11px 13px; border-radius:6px; font-family:Inter, sans-serif; font-size:13.5px; resize:vertical; outline:none" style-focus="border-color:#d29a5a"></textarea>
+                    <div style="display:flex; gap:10px; margin-top:14px">
+                      <button onClick="{{ saveItem }}" style="background:#d29a5a; color:#130f0c; border:none; font-family:Inter, sans-serif; font-size:13px; font-weight:600; letter-spacing:1px; padding:10px 22px; border-radius:6px; cursor:pointer" style-hover="background:#f8f8f8">Save</button>
+                      <button onClick="{{ cancelEdit }}" style="background:transparent; color:#8f867a; border:1px solid #3a2f25; font-family:Inter, sans-serif; font-size:13px; padding:10px 18px; border-radius:6px; cursor:pointer" style-hover="color:#f8f8f8">Cancel</button>
+                      <span style="flex:1"></span>
+                      <button onClick="{{ deleteItem }}" style="background:transparent; color:#c96a5a; border:none; font-family:Inter, sans-serif; font-size:13px; padding:10px 14px; border-radius:6px; cursor:pointer" style-hover="background:rgba(201,106,90,0.12)">Delete</button>
+                    </div>
+                  </div>
+                </sc-if>
+                <sc-if value="{{ it.showRow }}" hint-placeholder-val="{{ true }}">
+                  <div>
+                    <div style="display:flex; justify-content:space-between; align-items:baseline; gap:16px">
+                      <span style="font-family:Raleway, sans-serif; color:#f8f8f8; font-size:20px; font-weight:600; line-height:1.7">{{ it.name }}<sc-if value="{{ it.canEdit }}" hint-placeholder-val="{{ false }}"><span style="font-family:Inter, sans-serif; font-size:11px; color:#d29a5a; margin-left:10px; letter-spacing:1px; cursor:pointer">&#9998; EDIT</span></sc-if></span>
+                      <span style="font-family:Raleway, sans-serif; color:#f8f8f8; font-size:20px; font-weight:600; line-height:1.7">{{ it.price }}</span>
+                    </div>
+                    <div style="height:1.5px; background:#d29a5a; margin:5px 0"></div>
+                    <div style="font-size:14px; font-weight:200; line-height:1.6; color:#8f867a">{{ it.desc }}</div>
+                  </div>
+                </sc-if>
+              </div>
+            </sc-for>
+          </div>
+          <sc-if value="{{ canEdit }}" hint-placeholder-val="{{ false }}">
+            <div style="padding:0 67px 60px">
+              <button onClick="{{ cat.addItem }}" style="display:block; width:100%; background:transparent; border:1px dashed #3a2f25; color:#8f867a; padding:14px; border-radius:8px; font-family:Inter, sans-serif; font-size:13px; letter-spacing:1px; cursor:pointer" style-hover="border-color:#d29a5a; color:#d29a5a">+ Add item to {{ cat.title }}</button>
+            </div>
+          </sc-if>
+        </div>
+      </div>
+    </sc-for>
+    </sc-if>
+    <sc-if value="{{ isMobile }}" hint-placeholder-val="{{ false }}">
+    <div style="padding:40px 0 30px">
+      <sc-for list="{{ mobileCats }}" as="cat" hint-placeholder-count="5">
+        <div style="border-bottom:1px solid rgba(210,154,90,0.25)">
+          <div onClick="{{ cat.toggle }}" style="display:flex; justify-content:space-between; align-items:center; padding:26px 20px; cursor:pointer; background:#191310">
+            <span style="font-family:Raleway, sans-serif; font-weight:800; font-size:25px; color:#f8f8f8; text-transform:capitalize">{{ cat.title }}</span>
+            <span style="color:#d29a5a; font-size:32px; font-weight:300; line-height:1">{{ cat.chevron }}</span>
+          </div>
+          <sc-if value="{{ cat.isOpen }}" hint-placeholder-val="{{ false }}">
+            <div style="padding:26px 20px 34px">
+              <sc-if value="{{ cat.note }}" hint-placeholder-val="{{ false }}">
+                <div style="font-size:13.5px; font-weight:300; color:#8f867a; line-height:1.6; margin-bottom:26px">{{ cat.note }}</div>
+              </sc-if>
+              <sc-for list="{{ cat.items }}" as="it" hint-placeholder-count="4">
+                <div onClick="{{ it.open }}" style="padding-bottom:30px">
+                  <sc-if value="{{ it.isEditing }}" hint-placeholder-val="{{ false }}">
+                    <div style="background:#1a1512; border:1px solid rgba(210,154,90,0.5); border-radius:8px; padding:14px">
+                      <input value="{{ fName }}" onChange="{{ onName }}" placeholder="Item name" aria-label="Item name" style="width:100%; box-sizing:border-box; background:#241c16; border:1px solid #3a2f25; color:#f8f8f8; padding:11px 13px; border-radius:6px; font-family:Raleway, sans-serif; font-size:16px; font-weight:600; outline:none; margin-bottom:10px" style-focus="border-color:#d29a5a">
+                      <input value="{{ fPrice }}" onChange="{{ onPrice }}" placeholder="$0.00" aria-label="Price" style="width:110px; background:#241c16; border:1px solid #3a2f25; color:#f8f8f8; padding:11px 13px; border-radius:6px; font-size:15px; outline:none; margin-bottom:10px" style-focus="border-color:#d29a5a">
+                      <textarea value="{{ fDesc }}" onChange="{{ onDesc }}" rows="3" placeholder="Description" aria-label="Description" style="width:100%; box-sizing:border-box; background:#241c16; border:1px solid #3a2f25; color:#d1c8bb; padding:11px 13px; border-radius:6px; font-family:Inter, sans-serif; font-size:13.5px; resize:vertical; outline:none" style-focus="border-color:#d29a5a"></textarea>
+                      <div style="display:flex; gap:10px; margin-top:12px">
+                        <button onClick="{{ saveItem }}" style="background:#d29a5a; color:#130f0c; border:none; font-family:Inter, sans-serif; font-size:13px; font-weight:600; letter-spacing:1px; padding:10px 22px; border-radius:6px; cursor:pointer" style-hover="background:#f8f8f8">Save</button>
+                        <button onClick="{{ cancelEdit }}" style="background:transparent; color:#8f867a; border:1px solid #3a2f25; font-family:Inter, sans-serif; font-size:13px; padding:10px 18px; border-radius:6px; cursor:pointer" style-hover="color:#f8f8f8">Cancel</button>
+                        <span style="flex:1"></span>
+                        <button onClick="{{ deleteItem }}" style="background:transparent; color:#c96a5a; border:none; font-family:Inter, sans-serif; font-size:13px; padding:10px 14px; border-radius:6px; cursor:pointer" style-hover="background:rgba(201,106,90,0.12)">Delete</button>
+                      </div>
+                    </div>
+                  </sc-if>
+                  <sc-if value="{{ it.showRow }}" hint-placeholder-val="{{ true }}">
+                    <div>
+                      <div style="display:flex; justify-content:space-between; align-items:baseline; gap:14px">
+                        <span style="font-family:Raleway, sans-serif; color:#f8f8f8; font-size:18px; font-weight:600; line-height:1.5">{{ it.name }}<sc-if value="{{ it.canEdit }}" hint-placeholder-val="{{ false }}"><span style="font-family:Inter, sans-serif; font-size:11px; color:#d29a5a; margin-left:10px; letter-spacing:1px; cursor:pointer">&#9998; EDIT</span></sc-if></span>
+                        <span style="font-family:Raleway, sans-serif; color:#f8f8f8; font-size:18px; font-weight:600; line-height:1.5">{{ it.price }}</span>
+                      </div>
+                      <div style="height:1.5px; background:#d29a5a; margin:5px 0"></div>
+                      <div style="font-size:13.5px; font-weight:200; line-height:1.6; color:#8f867a">{{ it.desc }}</div>
+                    </div>
+                  </sc-if>
+                </div>
+              </sc-for>
+              <sc-if value="{{ canEdit }}" hint-placeholder-val="{{ false }}">
+                <button onClick="{{ cat.addItem }}" style="display:block; width:100%; background:transparent; border:1px dashed #3a2f25; color:#8f867a; padding:14px; border-radius:8px; font-family:Inter, sans-serif; font-size:13px; letter-spacing:1px; cursor:pointer" style-hover="border-color:#d29a5a; color:#d29a5a">+ Add item to {{ cat.title }}</button>
+              </sc-if>
+            </div>
+          </sc-if>
+        </div>
+      </sc-for>
+    </div>
+    </sc-if>
+    <div style="text-align:center; font-size:14px; color:#8f867a; padding:40px 56px 110px">Prices and selection may change &mdash; call us at <a href="tel:+18633532670" style="color:#d29a5a" style-hover="color:#f8f8f8">863-353-2670</a> for today's specials.</div>
+  </div>
+
+  <section data-screen-label="Order CTA" class="m-par" style="position:relative; min-height:543px; display:flex; align-items:center; background-image:url('assets/lasagna.jpg'); background-size:cover; background-position:50% 30%; background-attachment:fixed">
+    <div style="position:absolute; inset:0; background:rgba(19,15,12,0.85)"></div>
+    <div class="m-1col m-pad" style="position:relative; width:100%; max-width:1295px; margin:0 auto; padding:0 56px; box-sizing:border-box; display:grid; grid-template-columns:1.2fr 1fr; gap:80px; align-items:center">
+      <div>
+        <div style="display:flex; align-items:center; gap:14px; margin-bottom:18px">
+          <span style="width:44px; height:1px; background:#d29a5a"></span>
+          <span style="font-size:14px; letter-spacing:4px; color:#d29a5a; font-weight:500">ORDER</span>
+        </div>
+        <h2 style="font-family:Raleway, sans-serif; font-weight:800; font-size:56px; line-height:1.08; color:#f8f8f8; margin:0 0 28px">Order For Pick-Up</h2>
+        <p style="font-size:17px; font-weight:300; line-height:1.7; color:#d1c8bb; margin:0; max-width:460px">Call ahead and your order will be hot and ready when you arrive. Pizza, calzones, pasta &mdash; made fresh when you order.</p>
+      </div>
+      <div style="justify-self:center">
+        <a href="tel:+18633532670" class="m-btn" style="display:inline-block; background:#d29a5a; color:#101e22; font-size:15px; font-weight:700; letter-spacing:4px; padding:26px 52px" style-hover="background:#f8f8f8">CALL 863-353-2670</a>
+      </div>
+    </div>
+  </section>
+
+  <section data-screen-label="Info Strip" style="background:#191310; padding:70px 56px">
+    <div class="m-1col m-info" style="max-width:1295px; margin:0 auto; display:grid; grid-template-columns:1fr 1fr 1fr; gap:60px">
+      <div style="display:flex; align-items:center; gap:22px">
+        <svg width="42" height="42" viewBox="0 0 24 24" fill="none" stroke="#d29a5a" stroke-width="1.3" style="flex:none"><path d="M9 3 3 5v16l6-2 6 2 6-2V3l-6 2-6-2z"></path><path d="M9 3v16M15 5v16"></path></svg>
+        <span style="font-size:16px; line-height:1.6; color:#d1c8bb">Floridino's Italian Kitchen<br>29400 US Hwy. 27, Lake Hamilton, FL</span>
+      </div>
+      <div style="display:flex; align-items:center; gap:22px; justify-self:center">
+        <svg width="42" height="42" viewBox="0 0 24 24" fill="none" stroke="#d29a5a" stroke-width="1.3" style="flex:none"><path d="M6.6 3h3l1.5 4.5-2.2 1.5a12 12 0 0 0 5.6 5.6l1.5-2.2L20.5 14v3.4a2 2 0 0 1-2.2 2A16.5 16.5 0 0 1 3.6 4.7 2 2 0 0 1 6.6 3z"></path></svg>
+        <a href="tel:+18633532670" style="font-size:16px; line-height:1.6; color:#d1c8bb" style-hover="color:#d29a5a">863-353-2670</a>
+      </div>
+      <div style="display:flex; align-items:center; gap:22px; justify-self:end">
+        <svg width="42" height="42" viewBox="0 0 24 24" fill="none" stroke="#d29a5a" stroke-width="1.3" style="flex:none"><circle cx="12" cy="12" r="9"></circle><path d="M12 7v5l3.5 2"></path></svg>
+        <span style="font-size:16px; line-height:1.6; color:#d1c8bb">Open Daily 11:00 am<br>Sun&ndash;Thu 8:30 pm &middot; Fri&ndash;Sat 9:30 pm</span>
+      </div>
+    </div>
+  </section>
+
+  <footer style="background:#0d0a08; padding:90px 56px 0">
+    <div class="m-1col" style="max-width:1240px; margin:0 auto; display:grid; grid-template-columns:1.2fr 1fr 1fr; gap:70px; padding-bottom:70px">
+      <div>
+        <div style="display:flex; align-items:center; gap:14px; margin-bottom:22px">
+          <img src="assets/floridinos-logo.png" alt="Floridino's Italian Kitchen — Since 1988, From Our Family to Yours" style="height:74px; width:123px; object-fit:contain; filter:drop-shadow(0 3px 0 rgba(248,248,248,0.75))">
+        </div>
+        <p style="font-size:14px; line-height:1.8; color:#8f867a; margin:0; max-width:320px">Pizza &amp; pasta made from family recipes &mdash; and home of the world-record calzone.</p>
+      </div>
+      <div>
+        <div style="font-size:12px; letter-spacing:3px; color:#d29a5a; font-weight:600; margin-bottom:24px">HOURS</div>
+        <div style="display:grid; gap:12px; font-size:14px; color:#d1c8bb">
+          <div style="display:flex; justify-content:space-between; gap:20px"><span>Mon &ndash; Thu</span><span>11 AM &ndash; 8:30 PM</span></div>
+          <div style="display:flex; justify-content:space-between; gap:20px"><span>Fri &ndash; Sat</span><span>11 AM &ndash; 9:30 PM</span></div>
+          <div style="display:flex; justify-content:space-between; gap:20px"><span>Sunday</span><span>11 AM &ndash; 8:30 PM</span></div>
+        </div>
+      </div>
+      <div>
+        <div style="font-size:12px; letter-spacing:3px; color:#d29a5a; font-weight:600; margin-bottom:24px">CONTACT</div>
+        <div style="display:grid; align-content:start; gap:12px; font-size:14px; color:#d1c8bb">
+          <span>29400 US Hwy. 27</span>
+          <span>Lake Hamilton, FL</span>
+          <a href="tel:+18633532670" style="color:#d29a5a" style-hover="color:#f8f8f8">863-353-2670</a>
+        </div>
+      </div>
+    </div>
+    <div style="border-top:1px solid rgba(210,154,90,0.18); padding:26px 0; text-align:center; font-size:13px; color:#8f867a; max-width:1240px; margin:0 auto">&copy; 2026 Floridino's Italian Kitchen. All rights reserved. &nbsp;&middot;&nbsp; <span onClick="{{ openLogin }}" style="cursor:pointer; color:#8f867a" style-hover="color:#d29a5a">Staff Login</span></div>
+  </footer>
+
+  <sc-if value="{{ admin }}" hint-placeholder-val="{{ false }}">
+    <div class="m-adminbar" style="position:fixed; bottom:24px; left:50%; transform:translateX(-50%); z-index:60; display:flex; align-items:center; gap:14px; background:#1a1512; border:1px solid rgba(210,154,90,0.5); border-radius:12px; padding:10px 16px; box-shadow:0 14px 40px rgba(0,0,0,0.6); font-size:13px">
+      <span style="width:8px; height:8px; border-radius:50%; background:{{ dotColor }}"></span>
+      <span style="font-weight:600; color:#f8f8f8">{{ modeLabel }}</span>
+      <button onClick="{{ togglePreview }}" style="background:#241c16; border:1px solid #3a2f25; color:#d1c8bb; padding:8px 14px; border-radius:7px; font-family:Inter, sans-serif; font-size:12.5px; cursor:pointer" style-hover="border-color:#d29a5a">{{ previewLabel }}</button>
+      <button onClick="{{ logout }}" style="background:transparent; border:1px solid #3a2f25; color:#8f867a; padding:8px 14px; border-radius:7px; font-family:Inter, sans-serif; font-size:12.5px; cursor:pointer" style-hover="color:#f8f8f8">Log out</button>
+    </div>
+  </sc-if>
+
+  <sc-if value="{{ showLogin }}" hint-placeholder-val="{{ false }}">
+    <div style="position:fixed; inset:0; z-index:70; display:flex; align-items:center; justify-content:center; background:rgba(13,10,8,0.85); padding:24px">
+      <div style="width:100%; max-width:380px; background:#1a1512; border:1px solid rgba(210,154,90,0.35); border-radius:14px; padding:38px 34px 30px; box-shadow:0 30px 80px rgba(0,0,0,0.45)">
+        <div style="font-size:12px; letter-spacing:4px; color:#d29a5a; text-align:center; margin-bottom:8px; font-weight:600">FLORIDINO'S</div>
+        <h3 style="font-family:Raleway, sans-serif; font-weight:800; font-size:26px; color:#f8f8f8; text-align:center; margin:0 0 4px">Menu Manager</h3>
+        <p style="color:#8f867a; text-align:center; font-size:13px; margin:0 0 26px">Sign in to edit the menu</p>
+        <label style="display:block; margin-bottom:14px">
+          <span style="display:block; font-size:12px; color:#8f867a; margin-bottom:6px">Username</span>
+          <input value="{{ loginU }}" onChange="{{ onLoginU }}" type="text" autoComplete="username" placeholder="owner" style="width:100%; box-sizing:border-box; padding:11px 13px; border-radius:8px; background:#241c16; border:1px solid #3a2f25; color:#f8f8f8; font-size:14px; font-family:Inter, sans-serif; outline:none" style-focus="border-color:#d29a5a">
+        </label>
+        <label style="display:block; margin-bottom:14px">
+          <span style="display:block; font-size:12px; color:#8f867a; margin-bottom:6px">Password</span>
+          <input value="{{ loginP }}" onChange="{{ onLoginP }}" onKeyDown="{{ onLoginKey }}" type="password" autoComplete="current-password" placeholder="&#8226;&#8226;&#8226;&#8226;&#8226;&#8226;&#8226;&#8226;" style="width:100%; box-sizing:border-box; padding:11px 13px; border-radius:8px; background:#241c16; border:1px solid #3a2f25; color:#f8f8f8; font-size:14px; font-family:Inter, sans-serif; outline:none" style-focus="border-color:#d29a5a">
+        </label>
+        <sc-if value="{{ loginErr }}" hint-placeholder-val="{{ false }}">
+          <div style="color:#c96a5a; font-size:12.5px; margin-bottom:10px">Incorrect password &mdash; try &#8220;demo&#8221;</div>
+        </sc-if>
+        <button onClick="{{ doLogin }}" style="width:100%; background:#d29a5a; color:#20170a; font-weight:600; border:none; border-radius:8px; padding:12px 16px; font-family:Inter, sans-serif; font-size:14px; cursor:pointer; margin-top:8px" style-hover="background:#f8f8f8">Log in</button>
+        <div style="margin-top:18px; font-size:12px; color:#8f867a; text-align:center; line-height:1.6">Prototype &mdash; any username works.<br>Password: <code style="color:#d29a5a; background:#241c16; padding:1px 6px; border-radius:4px">demo</code></div>
+        <div onClick="{{ closeLogin }}" style="margin-top:16px; text-align:center; font-size:12.5px; color:#8f867a; cursor:pointer" style-hover="color:#f8f8f8">Cancel</div>
+      </div>
+    </div>
+  </sc-if>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  state = { cats: null, admin: false, preview: false, showLogin: false, editing: null, isMobile: false, openCat: 0, menuOpen: false, scrolled: false,
+    fName: '', fPrice: '', fDesc: '', loginU: '', loginP: '', loginErr: false };
+  componentDidMount() {
+    const bandPool = ['assets/wings.jpg', 'assets/wine.jpg', 'assets/pizza-supreme.jpg', 'assets/pasta.jpg', 'assets/pepperoni.jpg', 'assets/lasagna.jpg', 'assets/dough.jpg', 'assets/pizza-muffins.jpg', 'assets/mahi.jpg'];
+    for (let i = bandPool.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [bandPool[i], bandPool[j]] = [bandPool[j], bandPool[i]];
+    }
+    this.state.bands = bandPool;
+    import('./menu-data.js').then(m => {
+      let cats = m.MENU;
+      try {
+        const savedV = parseInt(localStorage.getItem('floridinos-menu-v1-version') || '0', 10);
+        const saved = localStorage.getItem('floridinos-menu-v1');
+        if (saved && savedV >= m.MENU_VERSION) cats = JSON.parse(saved);
+      } catch (e) {}
+      let admin = false;
+      try { admin = sessionStorage.getItem('floridinos-admin') === '1'; } catch (e) {}
+      this.setState({ cats, admin });
+    }).catch(() => this.setState({ cats: [] }));
+    this._esc = (e) => { if (e.key === 'Escape') this.setState({ editing: null, showLogin: false }); };
+    document.addEventListener('keydown', this._esc);
+    this._mq = window.matchMedia('(max-width:780px)');
+    this._onMq = (e) => this.setState({ isMobile: e.matches });
+    this._mq.addEventListener('change', this._onMq);
+    if (this._mq.matches) this.setState({ isMobile: true });
+    this._onScroll = () => { const s = window.scrollY > 60; if (s !== this.state.scrolled) this.setState({ scrolled: s }); };
+    window.addEventListener('scroll', this._onScroll, { passive: true });
+    this._onScroll();
+  }
+  componentWillUnmount() { document.removeEventListener('keydown', this._esc); if (this._mq) this._mq.removeEventListener('change', this._onMq); window.removeEventListener('scroll', this._onScroll); }
+  persist(cats) {
+    try {
+      localStorage.setItem('floridinos-menu-v1', JSON.stringify(cats));
+      import('./menu-data.js').then(m => localStorage.setItem('floridinos-menu-v1-version', String(m.MENU_VERSION)));
+    } catch (e) {}
+    /* PRODUCTION HOOK — replace localStorage with:
+       fetch('save.php', { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify(cats) });
+       save.php checks the session and writes menu.json to disk. No database required. */
+  }
+  mutate(fn) {
+    const cats = JSON.parse(JSON.stringify(this.state.cats));
+    fn(cats);
+    this.persist(cats);
+    return cats;
+  }
+  renderVals() {
+    const { cats, admin, preview, editing, showLogin } = this.state;
+    const canEdit = admin && !preview;
+    const bands = this.state.bands;
+    const slugify = (s) => s.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
+    const GROUPS = ['Starters & Sides', 'Lunch', 'Pizza & Calzones', 'Dinner & Seafood', 'Drinks & Dessert'];
+    const GROUP_OF = {
+      'Famous Wings': [0], "Tyler's Famous Breadsticks": [0], 'More Appetizers': [0], 'Pazzo Pizza Muffins': [0], 'Flatbread Pizzas': [0],
+      'Salads': [1, 3], 'Sandwiches': [1], 'Lunch Specials': [1], "Kid's Menu": [1],
+      'Specialty Pizzas': [2], 'Gourmet White Pizzas': [2], 'Pizza! Pizza! Pizza!': [2], 'Calzones': [2], 'Gourmet Calzones': [2],
+      'Pasta Dinners': [3], 'From the Sea': [3],
+      'Specialty Coffees': [4], 'Full Bar': [4], 'Desserts': [4]
+    };
+    const activeTab = this.state.activeTab ?? 0;
+    const mapCat = (c, ci) => ({
+      ...c,
+      slug: slugify(c.title),
+      anchor: '#' + slugify(c.title),
+      isOpen: this.state.openCat === ci,
+      chevron: this.state.openCat === ci ? '\u2212' : '+',
+      toggle: () => this.setState({ openCat: this.state.openCat === ci ? null : ci, editing: null }),
+      addItem: () => {
+        const cats2 = this.mutate(m => m[ci].items.push({ name: 'New item', price: '$0.00', desc: '' }));
+        this.setState({ cats: cats2, editing: [ci, cats2[ci].items.length - 1], fName: 'New item', fPrice: '$0.00', fDesc: '' });
+      },
+      items: c.items.map((it, ii) => {
+        const isEditing = canEdit && !!editing && editing[0] === ci && editing[1] === ii;
+        return {
+          ...it,
+          isEditing,
+          showRow: !isEditing,
+          canEdit,
+          open: () => { if (canEdit && !isEditing) this.setState({ editing: [ci, ii], fName: it.name, fPrice: it.price, fDesc: it.desc }); }
+        };
+      })
+    });
+    const mobileCats = (cats ?? []).map((c, ci) => ({ ...mapCat(c, ci), image: ci === 0 ? null : bands[(ci - 1) % bands.length] }));
+    const view = (cats ?? [])
+      .map((c, ci) => ({ c, ci }))
+      .filter(({ c }) => (GROUP_OF[c.title] ?? [0]).includes(activeTab))
+      .map(({ c, ci }, vi) => ({ ...mapCat(c, ci), image: vi === 0 ? null : bands[(vi - 1) % bands.length] }));
+    return {
+      cats: view, mobileCats, admin, canEdit, showLogin, isMobile: this.state.isMobile, isDesktop: !this.state.isMobile,
+      tabs: GROUPS.map((label, i) => ({
+        label, active: i === activeTab,
+        color: i === activeTab ? '#130f0c' : '#d29a5a',
+        bg: i === activeTab ? '#d29a5a' : 'transparent',
+        border: '#d29a5a',
+        select: () => this.setState({ activeTab: i })
+      })),
+      menuOpen: this.state.menuOpen,
+      hdrClass: this.state.scrolled ? 'hdr-stuck' : '',
+      toggleMenu: () => this.setState({ menuOpen: !this.state.menuOpen }),
+      loginErr: this.state.loginErr, loginU: this.state.loginU, loginP: this.state.loginP,
+      fName: this.state.fName, fPrice: this.state.fPrice, fDesc: this.state.fDesc,
+      modeLabel: preview ? 'Admin — viewing as guest' : 'Admin mode',
+      previewLabel: preview ? 'Back to editing' : 'Preview guest view',
+      dotColor: preview ? '#8f867a' : '#7fae7a',
+      onName: (e) => this.setState({ fName: e.target.value }),
+      onPrice: (e) => this.setState({ fPrice: e.target.value }),
+      onDesc: (e) => this.setState({ fDesc: e.target.value }),
+      saveItem: () => {
+        const [ci, ii] = this.state.editing;
+        const cats2 = this.mutate(m => {
+          m[ci].items[ii].name = this.state.fName.trim() || 'Untitled';
+          m[ci].items[ii].price = this.state.fPrice.trim();
+          m[ci].items[ii].desc = this.state.fDesc.trim();
+        });
+        this.setState({ cats: cats2, editing: null });
+      },
+      cancelEdit: () => this.setState({ editing: null }),
+      deleteItem: () => {
+        const [ci, ii] = this.state.editing;
+        const cats2 = this.mutate(m => m[ci].items.splice(ii, 1));
+        this.setState({ cats: cats2, editing: null });
+      },
+      openLogin: () => this.setState({ showLogin: true, loginErr: false }),
+      closeLogin: () => this.setState({ showLogin: false }),
+      onLoginU: (e) => this.setState({ loginU: e.target.value }),
+      onLoginP: (e) => this.setState({ loginP: e.target.value }),
+      onLoginKey: (e) => { if (e.key === 'Enter') this.doLogin(); },
+      doLogin: () => this.doLogin(),
+      togglePreview: () => this.setState({ preview: !this.state.preview, editing: null }),
+      logout: () => {
+        try { sessionStorage.removeItem('floridinos-admin'); } catch (e) {}
+        this.setState({ admin: false, preview: false, editing: null });
+      }
+    };
+  }
+  doLogin() {
+    // PROTOTYPE ONLY — in production this posts to login.php; the server validates a hashed password and sets a session cookie.
+    if (this.state.loginP === 'demo' || this.state.loginP === '') {
+      try { sessionStorage.setItem('floridinos-admin', '1'); } catch (e) {}
+      this.setState({ admin: true, showLogin: false, loginP: '', loginErr: false });
+    } else {
+      this.setState({ loginErr: true, loginP: '' });
+    }
+  }
+}
+</script>
+</body>
+</html>
