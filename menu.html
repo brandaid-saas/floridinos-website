@@ -318,17 +318,16 @@ class Component extends DCLogic {
       [bandPool[i], bandPool[j]] = [bandPool[j], bandPool[i]];
     }
     this.state.bands = bandPool;
-    import('./menu-data.js').then(m => {
-      let cats = m.MENU;
-      try {
-        const savedV = parseInt(localStorage.getItem('floridinos-menu-v1-version') || '0', 10);
-        const saved = localStorage.getItem('floridinos-menu-v1');
-        if (saved && savedV >= m.MENU_VERSION) cats = JSON.parse(saved);
-      } catch (e) {}
-      let admin = false;
-      try { admin = sessionStorage.getItem('floridinos-admin') === '1'; } catch (e) {}
-      this.setState({ cats, admin });
-    }).catch(() => this.setState({ cats: [] }));
+    this._api = 'https://floridinos-api.designshak.workers.dev';
+    fetch(this._api + '/api/menu')
+      .then(r => { if (!r.ok) throw new Error('http ' + r.status); return r.json(); })
+      .catch(() => import('./menu-data.js').then(m => m.MENU))
+      .then(cats => {
+        let admin = false;
+        try { admin = !!sessionStorage.getItem('floridinos-token'); } catch (e) {}
+        this.setState({ cats, admin });
+      })
+      .catch(() => this.setState({ cats: [] }));
     this._esc = (e) => { if (e.key === 'Escape') this.setState({ editing: null, showLogin: false }); };
     document.addEventListener('keydown', this._esc);
     this._mq = window.matchMedia('(max-width:780px)');
@@ -341,13 +340,20 @@ class Component extends DCLogic {
   }
   componentWillUnmount() { document.removeEventListener('keydown', this._esc); if (this._mq) this._mq.removeEventListener('change', this._onMq); window.removeEventListener('scroll', this._onScroll); }
   persist(cats) {
-    try {
-      localStorage.setItem('floridinos-menu-v1', JSON.stringify(cats));
-      import('./menu-data.js').then(m => localStorage.setItem('floridinos-menu-v1-version', String(m.MENU_VERSION)));
-    } catch (e) {}
-    /* PRODUCTION HOOK — replace localStorage with:
-       fetch('save.php', { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify(cats) });
-       save.php checks the session and writes menu.json to disk. No database required. */
+    let token = null;
+    try { token = sessionStorage.getItem('floridinos-token'); } catch (e) {}
+    fetch(this._api + '/api/menu', {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token },
+      body: JSON.stringify(cats)
+    }).then(r => {
+      if (r.status === 401) {
+        try { sessionStorage.removeItem('floridinos-token'); } catch (e) {}
+        this.setState({ admin: false, preview: false, editing: null, showLogin: true });
+      } else if (!r.ok) {
+        alert('Save failed (' + r.status + '). Your change may not be visible to guests.');
+      }
+    }).catch(() => alert('Save failed — check your internet connection.'));
   }
   mutate(fn) {
     const cats = JSON.parse(JSON.stringify(this.state.cats));
@@ -439,19 +445,22 @@ class Component extends DCLogic {
       doLogin: () => this.doLogin(),
       togglePreview: () => this.setState({ preview: !this.state.preview, editing: null }),
       logout: () => {
-        try { sessionStorage.removeItem('floridinos-admin'); } catch (e) {}
+        try { sessionStorage.removeItem('floridinos-token'); } catch (e) {}
         this.setState({ admin: false, preview: false, editing: null });
       }
     };
   }
   doLogin() {
-    // PROTOTYPE ONLY — in production this posts to login.php; the server validates a hashed password and sets a session cookie.
-    if (this.state.loginP === 'demo' || this.state.loginP === '') {
-      try { sessionStorage.setItem('floridinos-admin', '1'); } catch (e) {}
-      this.setState({ admin: true, showLogin: false, loginP: '', loginErr: false });
-    } else {
-      this.setState({ loginErr: true, loginP: '' });
-    }
+    fetch(this._api + '/api/login', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ username: this.state.loginU.trim(), password: this.state.loginP })
+    }).then(r => r.ok ? r.json() : Promise.reject())
+      .then(d => {
+        try { sessionStorage.setItem('floridinos-token', d.token); } catch (e) {}
+        this.setState({ admin: true, showLogin: false, loginP: '', loginErr: false });
+      })
+      .catch(() => this.setState({ loginErr: true, loginP: '' }));
   }
 }
 </script>
