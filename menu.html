@@ -361,6 +361,11 @@ class Component extends DCLogic {
     this.persist(cats);
     return cats;
   }
+  setKeep(patch) {
+    const y = window.scrollY;
+    this.setState(patch);
+    requestAnimationFrame(() => { window.scrollTo(0, y); setTimeout(() => window.scrollTo(0, y), 80); });
+  }
   renderVals() {
     const { cats, admin, preview, editing, showLogin } = this.state;
     const canEdit = admin && !preview;
@@ -384,7 +389,7 @@ class Component extends DCLogic {
       toggle: () => this.setState({ openCat: this.state.openCat === ci ? null : ci, editing: null }),
       addItem: () => {
         const cats2 = this.mutate(m => m[ci].items.push({ name: 'New item', price: '$0.00', desc: '' }));
-        this.setState({ cats: cats2, editing: [ci, cats2[ci].items.length - 1], fName: 'New item', fPrice: '$0.00', fDesc: '' });
+        this.setKeep({ cats: cats2, editing: [ci, cats2[ci].items.length - 1], fName: 'New item', fPrice: '$0.00', fDesc: '' });
       },
       items: c.items.map((it, ii) => {
         const isEditing = canEdit && !!editing && editing[0] === ci && editing[1] === ii;
@@ -393,7 +398,7 @@ class Component extends DCLogic {
           isEditing,
           showRow: !isEditing,
           canEdit,
-          open: () => { if (canEdit && !isEditing) this.setState({ editing: [ci, ii], fName: it.name, fPrice: it.price, fDesc: it.desc }); }
+          open: () => { if (canEdit && !isEditing) this.setKeep({ editing: [ci, ii], fName: it.name, fPrice: it.price, fDesc: it.desc }); }
         };
       })
     });
@@ -429,13 +434,13 @@ class Component extends DCLogic {
           m[ci].items[ii].price = this.state.fPrice.trim();
           m[ci].items[ii].desc = this.state.fDesc.trim();
         });
-        this.setState({ cats: cats2, editing: null });
+        this.setKeep({ cats: cats2, editing: null });
       },
-      cancelEdit: () => this.setState({ editing: null }),
+      cancelEdit: () => this.setKeep({ editing: null }),
       deleteItem: () => {
         const [ci, ii] = this.state.editing;
         const cats2 = this.mutate(m => m[ci].items.splice(ii, 1));
-        this.setState({ cats: cats2, editing: null });
+        this.setKeep({ cats: cats2, editing: null });
       },
       openLogin: () => this.setState({ showLogin: true, loginErr: false }),
       closeLogin: () => this.setState({ showLogin: false }),
@@ -459,6 +464,7 @@ class Component extends DCLogic {
       .then(d => {
         try { sessionStorage.setItem('floridinos-token', d.token); } catch (e) {}
         this.setState({ admin: true, showLogin: false, loginP: '', loginErr: false });
+        window.scrollTo({ top: 0, behavior: 'smooth' });
       })
       .catch(() => this.setState({ loginErr: true, loginP: '' }));
   }

@@ -302,6 +302,11 @@ class Component extends DCLogic {
     this.persist(cats);
     return cats;
   }
+  setKeep(patch) {
+    const y = window.scrollY;
+    this.setState(patch);
+    requestAnimationFrame(() => { window.scrollTo(0, y); setTimeout(() => window.scrollTo(0, y), 80); });
+  }
   doLogin() {
     fetch(this._api + '/api/login', {
       method: 'POST',
@@ -311,6 +316,7 @@ class Component extends DCLogic {
       .then(d => {
         try { sessionStorage.setItem('floridinos-token', d.token); } catch (e) {}
         this.setState({ admin: true, showLogin: false, loginP: '', loginErr: false });
+        window.scrollTo({ top: 0, behavior: 'smooth' });
       })
       .catch(() => this.setState({ loginErr: true, loginP: '' }));
   }
@@ -327,7 +333,7 @@ class Component extends DCLogic {
         addItem: () => {
           const cats2 = this.mutate(m => m[ci].groups[gi].items.push({ name: 'New item', price: '', desc: '' }));
           const newIi = cats2[ci].groups[gi].items.length - 1;
-          this.setState({ cats: cats2, editing: [ci, gi, newIi], fName: 'New item', fPrice: '', fDesc: '' });
+          this.setKeep({ cats: cats2, editing: [ci, gi, newIi], fName: 'New item', fPrice: '', fDesc: '' });
         },
         items: g.items.map((it, ii) => {
           const isEditing = canEdit && !!editing && editing[0] === ci && editing[1] === gi && editing[2] === ii;
@@ -336,7 +342,7 @@ class Component extends DCLogic {
             isEditing,
             showRow: !isEditing,
             canEdit,
-            open: () => { if (canEdit && !isEditing) this.setState({ editing: [ci, gi, ii], fName: it.name, fPrice: it.price, fDesc: it.desc }); }
+            open: () => { if (canEdit && !isEditing) this.setKeep({ editing: [ci, gi, ii], fName: it.name, fPrice: it.price, fDesc: it.desc }); }
           };
         })
       }))
@@ -361,13 +367,13 @@ class Component extends DCLogic {
           m[ci].groups[gi].items[ii].price = this.state.fPrice.trim();
           m[ci].groups[gi].items[ii].desc = this.state.fDesc.trim();
         });
-        this.setState({ cats: cats2, editing: null });
+        this.setKeep({ cats: cats2, editing: null });
       },
-      cancelEdit: () => this.setState({ editing: null }),
+      cancelEdit: () => this.setKeep({ editing: null }),
       deleteItem: () => {
         const [ci, gi, ii] = this.state.editing;
         const cats2 = this.mutate(m => m[ci].groups[gi].items.splice(ii, 1));
-        this.setState({ cats: cats2, editing: null });
+        this.setKeep({ cats: cats2, editing: null });
       },
       openLogin: () => this.setState({ showLogin: true, loginErr: false }),
       closeLogin: () => this.setState({ showLogin: false }),
