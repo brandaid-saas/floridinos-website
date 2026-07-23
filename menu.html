@@ -315,7 +315,7 @@ class Component extends DCLogic {
   state = { cats: null, admin: false, preview: false, showLogin: false, editing: null, isMobile: false, openCat: 0, menuOpen: false, scrolled: false,
     fName: '', fPrice: '', fDesc: '', loginU: '', loginP: '', loginErr: false, linkSent: false };
   componentDidMount() {
-    const bandPool = ['assets/wings.jpg', 'assets/wine.jpg', 'assets/pizza-supreme.jpg', 'assets/pasta.jpg', 'assets/pepperoni.jpg', 'assets/lasagna.jpg', 'assets/dough.jpg', 'assets/pizza-muffins.jpg', 'assets/mahi.jpg'];
+    const bandPool = ['assets/wings.jpg', 'assets/wine.jpg', 'assets/pizza-supreme.jpg', 'assets/pasta.jpg', 'assets/pepperoni.jpg', 'assets/lasagna.jpg', 'assets/dough.jpg', 'assets/pizza-muffins.jpg', 'assets/mahi.jpg', 'assets/dessert.jpg'];
     for (let i = bandPool.length - 1; i > 0; i--) {
       const j = Math.floor(Math.random() * (i + 1));
       [bandPool[i], bandPool[j]] = [bandPool[j], bandPool[i]];

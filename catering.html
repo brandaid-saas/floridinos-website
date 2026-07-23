@@ -338,7 +338,7 @@ class Component extends DCLogic {
   renderVals() {
     const { cats, admin, preview, editing, showLogin } = this.state;
     const canEdit = admin && !preview;
-    const bands = ['assets/lasagna.jpg', 'assets/mahi.jpg', 'assets/dough.jpg', 'assets/pepperoni.jpg', 'assets/wine.jpg'];
+    const bands = ['assets/lasagna.jpg', 'assets/mahi.jpg', 'assets/dough.jpg', 'assets/dessert.jpg', 'assets/wine.jpg'];
     const mapped = (cats ?? []).map((c, ci) => ({
       ...c,
       image: ci === 0 ? null : bands[(ci - 1) % bands.length],
