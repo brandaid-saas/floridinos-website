@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <script src="./support.js"></script>
 <link rel="canonical" href="https://floridinositaliankitchen.com/menu">
+<style>@media (max-width:780px){ .f-vdiv{display:none !important} .f-hline{margin:0 -16px !important} }</style>
 </head>
 <body>
 <x-dc>
@@ -249,13 +250,14 @@ input::placeholder, textarea::placeholder{color:#6b6357}
   </section>
 
   <footer style="background:#0d0a08; padding:90px 56px 0">
-    <div class="m-1col" style="max-width:1240px; margin:0 auto; display:grid; grid-template-columns:1.2fr 1fr 1fr; gap:70px; padding-bottom:70px">
+    <div class="m-1col" style="max-width:1240px; margin:0 auto; display:grid; grid-template-columns:1.2fr 1px 1fr 1px 1fr; gap:34px; padding-bottom:70px">
       <div>
         <div style="display:flex; align-items:center; gap:14px; margin-bottom:22px">
           <img src="assets/floridinos-logo.png" alt="Floridino's Italian Kitchen — Since 1988, From Our Family to Yours" style="height:74px; width:123px; object-fit:contain; filter:drop-shadow(0 3px 0 rgba(248,248,248,0.75))">
         </div>
         <p style="font-size:14px; line-height:1.8; color:#8f867a; margin:0; max-width:320px">Pizza &amp; pasta made from family recipes &mdash; and home of the world-record calzone.</p>
       </div>
+      <div class="f-vdiv" style="width:1px; background:#d29a5a; align-self:stretch; margin:4px 0"></div>
       <div>
         <div style="font-size:12px; letter-spacing:3px; color:#d29a5a; font-weight:600; margin-bottom:24px">HOURS</div>
         <div style="display:grid; gap:12px; font-size:14px; color:#d1c8bb">
@@ -264,6 +266,7 @@ input::placeholder, textarea::placeholder{color:#6b6357}
           <div style="display:flex; justify-content:space-between; gap:20px"><span>Sunday</span><span>11 AM &ndash; 8:30 PM</span></div>
         </div>
       </div>
+      <div class="f-vdiv" style="width:1px; background:#d29a5a; align-self:stretch; margin:4px 0"></div>
       <div>
         <div style="font-size:12px; letter-spacing:3px; color:#d29a5a; font-weight:600; margin-bottom:24px">CONTACT</div>
         <div style="display:grid; align-content:start; gap:12px; font-size:14px; color:#d1c8bb">
@@ -273,7 +276,8 @@ input::placeholder, textarea::placeholder{color:#6b6357}
         </div>
       </div>
     </div>
-    <div style="border-top:1px solid rgba(210,154,90,0.18); padding:26px 0; text-align:center; font-size:13px; color:#8f867a; max-width:1240px; margin:0 auto">&copy; 2026 Floridino's Italian Kitchen. All rights reserved. &nbsp;&middot;&nbsp; <span onClick="{{ openLogin }}" style="cursor:pointer; color:#8f867a" style-hover="color:#d29a5a">Staff Login</span></div>
+    <div class="f-hline" style="height:1px; background:#d29a5a; margin:0 -56px"></div>
+    <div style="padding:26px 0; text-align:center; font-size:13px; color:#8f867a; max-width:1240px; margin:0 auto">&copy; 2026 Floridino's Italian Kitchen. All rights reserved. &nbsp;&middot;&nbsp; <span onClick="{{ openLogin }}" style="cursor:pointer; color:#8f867a" style-hover="color:#d29a5a">Staff Login</span></div>
   </footer>
 
   <sc-if value="{{ admin }}" hint-placeholder-val="{{ false }}">
