@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <script src="./support.js"></script>
 <link rel="canonical" href="https://floridinositaliankitchen.com/">
-<style>@media (max-width:780px){ .f-vdiv{display:none !important} .f-hline{margin:0 -16px !important} }</style>
+<style>@media (max-width:780px){ .f-vdiv{display:none !important} }</style>
 </head>
 <body>
 <x-dc>
@@ -225,31 +225,34 @@ header{transition:background .2s}
   </section>
 
   <section data-screen-label="Info Strip" style="background:#191310; padding:70px 56px">
-    <div class="m-1col m-info" style="max-width:1295px; margin:0 auto; display:grid; grid-template-columns:1fr 1fr 1fr; gap:60px">
+    <div class="m-1col m-info" style="max-width:1295px; margin:0 auto; display:grid; grid-template-columns:1fr 1px 1fr 1px 1fr; gap:30px">
       <div style="display:flex; align-items:center; gap:22px">
         <svg width="42" height="42" viewBox="0 0 24 24" fill="none" stroke="#d29a5a" stroke-width="1.3" style="flex:none"><path d="M9 3 3 5v16l6-2 6 2 6-2V3l-6 2-6-2z"></path><path d="M9 3v16M15 5v16"></path></svg>
         <span style="font-size:16px; line-height:1.6; color:#d1c8bb">Floridino's Italian Kitchen<br>30650 US-27, Lake Hamilton, FL 33851</span>
       </div>
+      <div class="f-vdiv" style="width:1px; background:#d29a5a; align-self:stretch; margin:4px 0"></div>
       <div style="display:flex; align-items:center; gap:22px; justify-self:center">
         <svg width="42" height="42" viewBox="0 0 24 24" fill="none" stroke="#d29a5a" stroke-width="1.3" style="flex:none"><path d="M6.6 3h3l1.5 4.5-2.2 1.5a12 12 0 0 0 5.6 5.6l1.5-2.2L20.5 14v3.4a2 2 0 0 1-2.2 2A16.5 16.5 0 0 1 3.6 4.7 2 2 0 0 1 6.6 3z"></path></svg>
         <a href="tel:+18633532670" style="font-size:16px; line-height:1.6; color:#d1c8bb" style-hover="color:#d29a5a">863-353-2670</a>
       </div>
+      <div class="f-vdiv" style="width:1px; background:#d29a5a; align-self:stretch; margin:4px 0"></div>
       <div style="display:flex; align-items:center; gap:22px; justify-self:end">
         <svg width="42" height="42" viewBox="0 0 24 24" fill="none" stroke="#d29a5a" stroke-width="1.3" style="flex:none"><circle cx="12" cy="12" r="9"></circle><path d="M12 7v5l3.5 2"></path></svg>
         <span style="font-size:16px; line-height:1.6; color:#d1c8bb">Open Daily 11:00 am<br>Sun–Thu 8:30 pm · Fri–Sat 9:30 pm</span>
       </div>
     </div>
+    <div class="f-hline" style="height:1px; background:#d29a5a; margin:45px -56px 0"></div>
+  
   </section>
 
   <footer style="background:#0d0a08; padding:90px 56px 0">
-    <div class="m-1col" style="max-width:1240px; margin:0 auto; display:grid; grid-template-columns:1.2fr 1px 1fr 1px 1fr; gap:34px; padding-bottom:70px">
+    <div class="m-1col" style="max-width:1240px; margin:0 auto; display:grid; grid-template-columns:1.2fr 1fr 1fr; gap:70px; padding-bottom:70px">
       <div>
         <div style="display:flex; align-items:center; gap:14px; margin-bottom:22px">
           <img src="assets/floridinos-logo.png" alt="Floridino's Italian Kitchen — Since 1988, From Our Family to Yours" style="height:74px; width:123px; object-fit:contain; filter:drop-shadow(0 3px 0 rgba(248,248,248,0.75))">
         </div>
         <p style="font-size:14px; line-height:1.8; color:#8f867a; margin:0; max-width:320px">Pizza &amp; pasta made from family recipes — and home of the world-record calzone.</p>
       </div>
-      <div class="f-vdiv" style="width:1px; background:#d29a5a; align-self:stretch; margin:4px 0"></div>
       <div>
         <div style="font-size:12px; letter-spacing:3px; color:#d29a5a; font-weight:600; margin-bottom:24px">HOURS</div>
         <div style="display:grid; gap:12px; font-size:14px; color:#d1c8bb">
@@ -258,7 +261,6 @@ header{transition:background .2s}
           <div style="display:flex; justify-content:space-between; gap:20px"><span>Sunday</span><span>11 AM – 8:30 PM</span></div>
         </div>
       </div>
-      <div class="f-vdiv" style="width:1px; background:#d29a5a; align-self:stretch; margin:4px 0"></div>
       <div>
         <div style="font-size:12px; letter-spacing:3px; color:#d29a5a; font-weight:600; margin-bottom:24px">CONTACT</div>
         <div style="display:grid; align-content:start; gap:12px; font-size:14px; color:#d1c8bb">
@@ -268,8 +270,7 @@ header{transition:background .2s}
         </div>
       </div>
     </div>
-    <div class="f-hline" style="height:1px; background:#d29a5a; margin:0 -56px"></div>
-    <div style="padding:26px 0; text-align:center; font-size:13px; color:#8f867a; max-width:1240px; margin:0 auto">© 2026 Floridino's Italian Kitchen. All rights reserved.</div>
+    <div style="border-top:1px solid rgba(210,154,90,0.18); padding:26px 0; text-align:center; font-size:13px; color:#8f867a; max-width:1240px; margin:0 auto">© 2026 Floridino's Italian Kitchen. All rights reserved.</div>
   </footer>
 </div>
 </x-dc>
