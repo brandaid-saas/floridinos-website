@@ -286,16 +286,14 @@ class Component extends DCLogic {
     { stars: 5, name: "Jonathan C.", text: "The pizzas here are consistently delicious, especially the surprising pizza muffins and the enormous calzones that never disappoint." }
   ];
   componentDidMount() {
-    import('./menu-data.js').then(m => {
-      let cats = m.MENU;
-      try {
-        const savedV = parseInt(localStorage.getItem('floridinos-menu-v1-version') || '0', 10);
-        const saved = localStorage.getItem('floridinos-menu-v1');
-        if (saved && savedV >= m.MENU_VERSION) cats = JSON.parse(saved);
-      } catch (e) {}
-      const lunch = cats.find(c => c.title === 'Lunch Specials');
-      this.setState({ specials: lunch ? lunch.items : [] });
-    }).catch(() => this.setState({ specials: [] }));
+    fetch('https://floridinos-api.designshak.workers.dev/api/menu')
+      .then(r => { if (!r.ok) throw new Error('http ' + r.status); return r.json(); })
+      .catch(() => import('./menu-data.js').then(m => m.MENU))
+      .then(cats => {
+        const lunch = cats.find(c => c.title.trim().toLowerCase() === 'lunch specials');
+        this.setState({ specials: lunch ? lunch.items : [] });
+      })
+      .catch(() => this.setState({ specials: [] }));
     let seed = 1;
     try { seed = parseInt(localStorage.getItem('floridinos-visit-seed') || '0', 10) + 1; localStorage.setItem('floridinos-visit-seed', String(seed)); } catch (e) {}
     // seeded shuffle: a different review order every visit, no repeats until all have shown
