@@ -3,7 +3,7 @@
 // Pizza / Calzones / Pasta / Desserts are PLACEHOLDERS — need photos of the menu's other panels.
 export const MENU_VERSION = 5;
 export const MENU = [
-  { title: "Salads", note: "Individually prepared to order. Choice of Famous Original House, Ranch, Blue Cheese, Caesar, Balsamic Vinaigrette or Honey Raspberry Vinaigrette. Extra dressing .99", items: [
+  { title: "Salads", note: "Individually prepared to order. Choice of Famous Original House, Ranch, Blue Cheese, Caesar, Balsamic Vinaigrette or Honey Raspberry Vinaigrette. Extra dressing $1.99", items: [
     { name: "Tossed Salad", price: "$5.65", desc: "A small side salad with lettuce, tomatoes and cucumbers." },
     { name: "Cranberry Chicken Salad", price: "$13.45", desc: "Spring mix, chicken, cranberries, walnuts, tomatoes, Blue cheese crumbles and Honey Raspberry Vinaigrette dressing." },
     { name: "Crispy Fried Chicken Salad", price: "$12.95", desc: "Lettuce, chicken, tomatoes, cucumbers, Mozzarella & Cheddar cheeses and bacon bits." },
