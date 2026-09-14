@@ -404,6 +404,8 @@ class Component extends DCLogic {
     const { cats, admin, preview, editing, showLogin } = this.state;
     const canEdit = admin && !preview;
     const CATEGORY_IMAGE = {
+      'Salads': 'assets/salad.jpg',
+      'Sandwiches': 'assets/sandwich.jpg',
       'Specialty Pizzas': 'assets/pizza-supreme.jpg',
       'Gourmet White Pizzas': 'assets/dough.jpg',
       'Pizza! Pizza! Pizza!': 'assets/pepperoni.jpg',
@@ -415,13 +417,12 @@ class Component extends DCLogic {
       'Lunch Specials': 'assets/dough.jpg',
       'Pazzo Pizza Muffins': 'assets/pizza-muffins.jpg',
       'Famous Wings': 'assets/wings.jpg',
-      "Tyler's Famous Breadsticks": 'assets/pizza-muffins.jpg',
+      "Tyler's Famous Breadsticks": 'assets/breadsticks.jpg',
       'More Appetizers': 'assets/wings.jpg',
-      'Flatbread Pizzas': 'assets/dough.jpg',
+      'Flatbread Pizzas': 'assets/flatbread.jpg',
       'Specialty Coffees': 'assets/dessert.jpg',
       'Desserts': 'assets/dessert.jpg',
-      'Full Bar': 'assets/wine.jpg',
-      'Sandwiches': 'assets/dough.jpg'
+      'Full Bar': 'assets/wine.jpg'
     };
     const slugify = (s) => s.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
     const GROUPS = ['Starters & Sides', 'Lunch', 'Pizza & Calzones', 'Dinner & Seafood', 'Drinks & Dessert'];
@@ -455,11 +456,11 @@ class Component extends DCLogic {
         };
       })
     });
-    const mobileCats = (cats ?? []).map((c, ci) => ({ ...mapCat(c, ci), image: ci === 0 ? null : (CATEGORY_IMAGE[c.title] ?? null) }));
+    const mobileCats = (cats ?? []).map((c, ci) => ({ ...mapCat(c, ci), image: CATEGORY_IMAGE[c.title] ?? null }));
     const view = (cats ?? [])
       .map((c, ci) => ({ c, ci }))
       .filter(({ c }) => (GROUP_OF[c.title] ?? [0]).includes(activeTab))
-      .map(({ c, ci }, vi) => ({ ...mapCat(c, ci), image: vi === 0 ? null : (CATEGORY_IMAGE[c.title] ?? null) }));
+      .map(({ c, ci }) => ({ ...mapCat(c, ci), image: CATEGORY_IMAGE[c.title] ?? null }));
     return {
       cats: view, mobileCats, admin, canEdit, showLogin, isMobile: this.state.isMobile, isDesktop: !this.state.isMobile,
       tabs: GROUPS.map((label, i) => ({
