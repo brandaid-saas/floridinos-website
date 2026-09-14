@@ -5,13 +5,13 @@
 <script>(function(){if(location.protocol==="http:"&&/floridinositaliankitchen\.com$/.test(location.hostname)){location.replace("https://"+location.host+location.pathname+location.search+location.hash);}})()</script>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <script src="./support.js"></script>
-<link rel="canonical" href="https://floridinositaliankitchen.com/contact">
+<link rel="canonical" href="https://floridinositaliankitchen.com/our-story">
 </head>
 <body>
 <x-dc>
 <helmet>
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Contact Us — Floridino's Italian Kitchen</title>
+<title>Our Story — Floridino's Italian Kitchen</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@700;800&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet">
 <style>
@@ -27,6 +27,7 @@ header{transition:background .2s}
 @keyframes hdrDown{from{transform:translateY(-100%)}to{transform:translateY(0)}}
 .m-logo{transition:transform .35s ease; transform:scale(1.44); transform-origin:top left}
 .hdr-stuck .m-logo{transform:scale(1)}
+.m-photo{aspect-ratio:1; background-color:#1a1512; background-size:cover; background-position:center; border:1px solid rgba(210,154,90,0.18)}
 
 @media (max-width:780px){
   .m-site{min-width:0 !important}
@@ -57,8 +58,10 @@ header{transition:background .2s}
   .m-hero{min-height:0 !important; padding-top:120px !important; padding-bottom:70px !important}
   .m-bighero{height:380px !important}
   footer{padding-left:20px !important; padding-right:20px !important}
+  .m-story{grid-template-columns:1fr !important; gap:44px !important}
+  .m-story-rev{direction:ltr !important}
+  .m-photogrid{grid-template-columns:1fr 1fr !important; max-width:420px !important}
 }
-input::placeholder, textarea::placeholder{color:#6b6357}
 </style>
 </helmet>
 <div class="m-site" style="font-family:Inter, sans-serif; color:#d1c8bb; background:#130f0c; min-width:1100px">
@@ -70,7 +73,7 @@ input::placeholder, textarea::placeholder{color:#6b6357}
       <a href="/menu" style="font-size:16px; letter-spacing:1.8px; font-weight:500; color:#f8f8f8; text-shadow:0 1px 4px rgba(0,0,0,0.55)" style-hover="color:#d29a5a; text-decoration:underline; text-underline-offset:8px; text-decoration-thickness:2px; text-decoration-color:#d29a5a">MENU</a>
       <a href="/catering" style="font-size:16px; letter-spacing:1.8px; font-weight:500; color:#f8f8f8; text-shadow:0 1px 4px rgba(0,0,0,0.55)" style-hover="color:#d29a5a; text-decoration:underline; text-underline-offset:8px; text-decoration-thickness:2px; text-decoration-color:#d29a5a">CATERING</a>
       <a href="/world-record-calzone" style="font-size:16px; letter-spacing:1.8px; font-weight:500; color:#f8f8f8; text-shadow:0 1px 4px rgba(0,0,0,0.55)" style-hover="color:#d29a5a; text-decoration:underline; text-underline-offset:8px; text-decoration-thickness:2px; text-decoration-color:#d29a5a">WORLD RECORD</a>
-      <a href="/contact" style="font-size:16px; letter-spacing:1.8px; font-weight:600; color:#d29a5a; text-shadow:0 1px 4px rgba(0,0,0,0.55); text-decoration:underline; text-underline-offset:8px; text-decoration-thickness:2px; text-decoration-color:#d29a5a">CONTACT</a>
+      <a href="/contact" style="font-size:16px; letter-spacing:1.8px; font-weight:500; color:#f8f8f8; text-shadow:0 1px 4px rgba(0,0,0,0.55)" style-hover="color:#d29a5a; text-decoration:underline; text-underline-offset:8px; text-decoration-thickness:2px; text-decoration-color:#d29a5a">CONTACT</a>
     </nav>
     <a href="tel:+18633532670" class="m-hphone" style="font-size:17px; letter-spacing:0.8px; font-weight:700; color:#f8f8f8; border:1.5px solid #f8f8f8; padding:13px 24px; white-space:nowrap" style-hover="color:#130f0c; background:#d29a5a; border-color:#d29a5a">863-353-2670</a>
     <div class="m-burger" onClick="{{ toggleMenu }}" style="display:none; flex-direction:column; gap:5px; cursor:pointer; padding:6px 2px; margin-left:auto">
@@ -92,69 +95,71 @@ input::placeholder, textarea::placeholder{color:#6b6357}
     <span>CALL 863-353-2670</span>
   </a>
 
-  <section data-screen-label="Contact Hero" class="m-par m-bighero" style="position:relative; height:480px; display:flex; align-items:center; justify-content:center; background-image:url('assets/dough.jpg'); background-size:cover; background-position:50% 40%; background-attachment:fixed">
+  <section data-screen-label="Our Story Hero" class="m-par m-bighero" style="position:relative; height:480px; display:flex; align-items:center; justify-content:center; background-image:url('assets/lasagna.jpg'); background-size:cover; background-position:50% 40%; background-attachment:fixed">
     <div style="position:absolute; inset:0; background:rgba(19,15,12,0.6)"></div>
-    <h1 style="position:relative; font-family:Raleway, sans-serif; font-weight:800; font-size:74px; letter-spacing:6px; color:#f8f8f8; margin:0; padding-top:40px">CONTACT US</h1>
+    <h1 style="position:relative; font-family:Raleway, sans-serif; font-weight:800; font-size:74px; letter-spacing:6px; color:#f8f8f8; margin:0; padding-top:40px">OUR STORY</h1>
   </section>
 
-  <section data-screen-label="Get In Touch" style="padding:110px 56px 130px">
-    <div class="m-1col" style="max-width:1240px; margin:0 auto; display:grid; grid-template-columns:0.9fr 1.1fr; gap:100px">
+  <section data-screen-label="Story Part 1 — Camposano" style="padding:130px 56px">
+    <div class="m-story" style="max-width:1240px; margin:0 auto; display:grid; grid-template-columns:1.05fr 0.95fr; gap:100px; align-items:center">
       <div>
         <div style="display:flex; align-items:center; gap:14px; margin-bottom:18px">
           <span style="width:44px; height:1px; background:#d29a5a"></span>
-          <span style="font-size:12px; letter-spacing:3px; color:#d29a5a; font-weight:600">KEEP CLOSE</span>
+          <span style="font-size:12px; letter-spacing:3px; color:#d29a5a; font-weight:600">CAMPOSANO, ITALY</span>
         </div>
-        <h2 style="font-family:Raleway, sans-serif; font-weight:800; font-size:54px; color:#f8f8f8; margin:0 0 24px">Get In Touch</h2>
-        <p style="font-size:15px; line-height:1.85; margin:0 0 46px">Questions about catering, large orders, or tonight's wait? Give us a call — we're happy to help. For anything else, send us a note and we'll get back to you.</p>
-        <div class="m-1col" style="display:grid; grid-template-columns:1fr 1fr; gap:34px 40px; padding-bottom:40px; border-bottom:1px solid rgba(210,154,90,0.25)">
-          <div style="display:flex; align-items:flex-start; gap:16px">
-            <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="#d29a5a" stroke-width="1.3" style="flex:none"><path d="M9 3 3 5v16l6-2 6 2 6-2V3l-6 2-6-2z"></path><path d="M9 3v16M15 5v16"></path></svg>
-            <span style="font-size:15px; line-height:1.7; color:#d1c8bb">30650 US-27<br>Lake Hamilton, FL 33851</span>
-          </div>
-          <div style="display:flex; align-items:flex-start; gap:16px">
-            <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="#d29a5a" stroke-width="1.3" style="flex:none"><circle cx="12" cy="12" r="9"></circle><path d="M12 7v5l3.5 2"></path></svg>
-            <span style="font-size:15px; line-height:1.7; color:#d1c8bb">Mon–Thu 11 AM – 8:30 PM<br>Fri–Sat 11 AM – 9:30 PM<br>Sunday 11 AM – 8:30 PM</span>
-          </div>
-          <div style="display:flex; align-items:flex-start; gap:16px">
-            <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="#d29a5a" stroke-width="1.3" style="flex:none"><path d="M3 6.5 12 12l9-5.5"></path><path d="M3.5 5h17a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1h-17a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1z"></path></svg>
-            <a href="mailto:info@floridinositaliankitchen.com" style="font-size:15px; line-height:1.7; color:#d1c8bb" style-hover="color:#d29a5a">Email Us</a>
-          </div>
-          <div style="display:flex; align-items:flex-start; gap:16px">
-            <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="#d29a5a" stroke-width="1.3" style="flex:none"><path d="M6.6 3h3l1.5 4.5-2.2 1.5a12 12 0 0 0 5.6 5.6l1.5-2.2L20.5 14v3.4a2 2 0 0 1-2.2 2A16.5 16.5 0 0 1 3.6 4.7 2 2 0 0 1 6.6 3z"></path></svg>
-            <a href="tel:+18633532670" style="font-size:15px; line-height:1.7; color:#d1c8bb" style-hover="color:#d29a5a">863-353-2670</a>
-          </div>
-        </div>
-        <div style="margin-top:40px">
-          <div style="font-size:12px; letter-spacing:3px; color:#d1c8bb; font-weight:600; margin-bottom:20px">FOLLOW US</div>
-          <div style="display:flex; align-items:center; gap:22px">
-            <a href="#" aria-label="Facebook" style="color:#d29a5a" style-hover="color:#f8f8f8"><svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M13.5 21v-7.5H16l.4-3H13.5V8.3c0-.87.24-1.46 1.5-1.46H16.5V4.14C16.16 4.1 15 4 13.66 4 10.86 4 9 5.66 9 8.02v2.48H6.5v3H9V21h4.5z"></path></svg></a>
-            <a href="#" aria-label="Instagram" style="color:#d29a5a" style-hover="color:#f8f8f8"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3.5" y="3.5" width="17" height="17" rx="5"></rect><circle cx="12" cy="12" r="4"></circle><circle cx="17" cy="7" r="0.8" fill="currentColor" stroke="none"></circle></svg></a>
-            <a href="#" aria-label="Twitter" style="color:#d29a5a" style-hover="color:#f8f8f8"><svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M22 5.9c-.7.3-1.5.6-2.3.7.8-.5 1.5-1.3 1.8-2.3-.8.5-1.7.8-2.6 1a3.8 3.8 0 0 0-6.5 3.5A11 11 0 0 1 3.8 4.6a3.8 3.8 0 0 0 1.2 5.1 3.8 3.8 0 0 1-1.7-.5c0 1.8 1.3 3.4 3 3.7-.5.2-1.1.2-1.7.1a3.8 3.8 0 0 0 3.6 2.7A7.7 7.7 0 0 1 2 17.5a11 11 0 0 0 6 1.8c7.1 0 11.1-6 11.1-11.1v-.5c.8-.5 1.5-1.2 1.9-2z"></path></svg></a>
-          </div>
-        </div>
+        <h2 style="font-family:Raleway, sans-serif; font-weight:800; font-size:44px; line-height:1.15; color:#f8f8f8; margin:0 0 30px">Rich in Family History while Embracing the American Dream</h2>
+        <blockquote style="margin:0 0 34px; padding-left:24px; border-left:2px solid #d29a5a; font-style:italic; font-size:17px; line-height:1.85; color:#f0ece4">
+          "I'm very proud of my accomplishments, which all started as a young boy from Italy, coming to America and dreaming of a better life. To us Europeans, the United States was and is the Land of Opportunity, and that in itself was a far-away dream which turned into reality."
+          <footer style="margin-top:14px; font-style:normal; font-size:13px; letter-spacing:1.5px; color:#d29a5a; font-weight:600">— MICHAEL FLORIDINO</footer>
+        </blockquote>
+        <p style="font-size:15px; line-height:1.9; margin:0">My family were farmers from Camposano, a suburb of Napoli, Italy. The whole family would travel to work on my father's motorcycle — me and my brother on the gas tank in front of my father, my mother behind my father holding on to my two sisters.</p>
+      </div>
+      <div class="m-photogrid" style="display:grid; grid-template-columns:1fr 1fr; gap:16px">
+        <div class="m-photo" style="background-image:url('assets/our-story/family-01.jpg')"></div>
+        <div class="m-photo" style="background-image:url('assets/our-story/family-02.jpg')"></div>
+        <div class="m-photo" style="background-image:url('assets/our-story/family-03.jpg')"></div>
+        <div class="m-photo" style="background-image:url('assets/our-story/family-04.jpg')"></div>
+      </div>
+    </div>
+  </section>
+
+  <section data-screen-label="Story Part 2 — Portland" style="padding:0 56px 130px">
+    <div class="m-story" style="max-width:1240px; margin:0 auto; display:grid; grid-template-columns:0.95fr 1.05fr; gap:100px; align-items:center">
+      <div class="m-photogrid" style="display:grid; grid-template-columns:1fr 1fr; gap:16px">
+        <div class="m-photo" style="background-image:url('assets/our-story/family-05.jpg')"></div>
+        <div class="m-photo" style="background-image:url('assets/our-story/family-06.jpg')"></div>
+        <div class="m-photo" style="background-image:url('assets/our-story/family-07.jpg')"></div>
+        <div class="m-photo" style="background-image:url('assets/our-story/family-08.jpg')"></div>
       </div>
       <div>
-        <h3 style="font-family:Raleway, sans-serif; font-weight:800; font-size:34px; color:#f8f8f8; margin:0 0 10px">Your Details</h3>
-        <p style="font-size:14px; color:#8f867a; margin:0 0 40px">Let us know how to get back to you.</p>
-        <div class="m-1col" style="display:grid; grid-template-columns:1fr 1fr; gap:30px; margin-bottom:30px">
-          <label style="display:grid; align-content:start; gap:12px">
-            <span style="font-size:11px; letter-spacing:3px; color:#d1c8bb; font-weight:600">NAME <span style="color:#d29a5a">*</span></span>
-            <input type="text" placeholder="John" style="background:#1a1512; border:1px solid #2a231d; color:#f8f8f8; padding:15px 16px; font-family:Inter, sans-serif; font-size:14px; outline:none" style-focus="border-color:#d29a5a">
-          </label>
-          <label style="display:grid; align-content:start; gap:12px">
-            <span style="font-size:11px; letter-spacing:3px; color:#d1c8bb; font-weight:600">EMAIL ADDRESS <span style="color:#d29a5a">*</span></span>
-            <input type="email" placeholder="email@gmail.com" style="background:#1a1512; border:1px solid #2a231d; color:#f8f8f8; padding:15px 16px; font-family:Inter, sans-serif; font-size:14px; outline:none" style-focus="border-color:#d29a5a">
-          </label>
+        <div style="display:flex; align-items:center; gap:14px; margin-bottom:18px">
+          <span style="width:44px; height:1px; background:#d29a5a"></span>
+          <span style="font-size:12px; letter-spacing:3px; color:#d29a5a; font-weight:600">1971 — PORTLAND, MAINE</span>
         </div>
-        <label style="display:grid; align-content:start; gap:12px; margin-bottom:30px">
-          <span style="font-size:11px; letter-spacing:3px; color:#d1c8bb; font-weight:600">SUBJECT <span style="color:#d29a5a">*</span></span>
-          <input type="text" placeholder="Subject" style="background:#1a1512; border:1px solid #2a231d; color:#f8f8f8; padding:15px 16px; font-family:Inter, sans-serif; font-size:14px; outline:none" style-focus="border-color:#d29a5a">
-        </label>
-        <label style="display:grid; align-content:start; gap:12px; margin-bottom:40px">
-          <span style="font-size:11px; letter-spacing:3px; color:#d1c8bb; font-weight:600">COMMENTS / QUESTIONS <span style="color:#d29a5a">*</span></span>
-          <textarea placeholder="Question" rows="6" style="background:#1a1512; border:1px solid #2a231d; color:#f8f8f8; padding:15px 16px; font-family:Inter, sans-serif; font-size:14px; outline:none; resize:vertical" style-focus="border-color:#d29a5a"></textarea>
-        </label>
-        <button onClick="{{ submit }}" class="m-btn" style="background:#d29a5a; color:#101e22; border:none; font-family:Inter, sans-serif; font-size:13px; font-weight:600; letter-spacing:3px; padding:19px 44px; cursor:pointer" style-hover="background:#f8f8f8">{{ submitLabel }}</button>
+        <h2 style="font-family:Raleway, sans-serif; font-weight:800; font-size:44px; line-height:1.15; color:#f8f8f8; margin:0 0 30px">Floridino's History — Continued</h2>
+        <p style="font-size:15px; line-height:1.9; margin:0 0 26px">We worked hard and lived a rich culture of land to table with my family developing the recipes that I still use today. Back then, the thoughts of a better life in America was always on my mind. Even my favorite TV program was American — Rin Tin Tin!</p>
+        <p style="font-size:15px; line-height:1.9; margin:0">In 1971, when I was 13 years old, my family immigrated to the United States. We first settled in Portland, Maine where I starting working as a shoe shine boy at 14 to help support the family. Shortly after that, I began working in a Pizzeria which lasted for the next 18 years.</p>
+      </div>
+    </div>
+  </section>
+
+  <section data-screen-label="Story Part 3 — Florida" style="padding:0 56px 140px">
+    <div class="m-story" style="max-width:1240px; margin:0 auto; display:grid; grid-template-columns:1.05fr 0.95fr; gap:100px; align-items:center">
+      <div>
+        <div style="display:flex; align-items:center; gap:14px; margin-bottom:18px">
+          <span style="width:44px; height:1px; background:#d29a5a"></span>
+          <span style="font-size:12px; letter-spacing:3px; color:#d29a5a; font-weight:600">FLORIDA, 1988</span>
+        </div>
+        <h2 style="font-family:Raleway, sans-serif; font-weight:800; font-size:34px; line-height:1.2; color:#f8f8f8; margin:0 0 30px">Floridino's Pizza &amp; Pasta to Floridino's Italian Kitchen</h2>
+        <p style="font-size:15px; line-height:1.9; margin:0 0 26px">My experience of working in the food industry for many years coupled with my passion for cooking that had developed in all the years of kitchen time with my mother, I decided to strike out on my own. I moved to Florida in November of 1988 and opened Floridino's Pizza &amp; Pasta. I wanted to take homestyle Italian cooking into a casual restaurant setting without sacrificing flavor and quality. All of our dishes are heavily influenced by southern Italy-style cooking.</p>
+        <p style="font-size:15px; line-height:1.9; margin:0 0 26px">In 2008, I restructured my whole Italian eatery concept and Floridino's Italian Kitchen was born! New look, new menu, new delicious dishes with even more value for your money! I feel that your home cooking is now our only competition!</p>
+        <p style="font-size:15px; line-height:1.9; margin:0">I love creating tasty new dishes for my friends, family and ultimately my customers — at the end of the day, we are all one big, happy family!</p>
+      </div>
+      <div class="m-photogrid" style="display:grid; grid-template-columns:1fr 1fr; gap:16px">
+        <div class="m-photo" style="background-image:url('assets/our-story/family-09.jpg')"></div>
+        <div class="m-photo" style="background-image:url('assets/our-story/family-10.jpg')"></div>
+        <div class="m-photo" style="background-image:url('assets/our-story/family-11.jpg')"></div>
+        <div class="m-photo" style="background-image:url('assets/our-story/family-12.jpg')"></div>
       </div>
     </div>
   </section>
@@ -203,7 +208,7 @@ input::placeholder, textarea::placeholder{color:#6b6357}
 </x-dc>
 <script type="text/x-dc" data-dc-script>
 class Component extends DCLogic {
-  state = { sent: false, menuOpen: false, scrolled: false };
+  state = { menuOpen: false, scrolled: false };
   componentDidMount() {
     this._onScroll = () => { const s = window.scrollY > 60; if (s !== this.state.scrolled) this.setState({ scrolled: s }); };
     window.addEventListener('scroll', this._onScroll, { passive: true });
@@ -213,9 +218,7 @@ class Component extends DCLogic {
     return {
       menuOpen: this.state.menuOpen,
       hdrClass: this.state.scrolled ? 'hdr-stuck' : '',
-      toggleMenu: () => this.setState({ menuOpen: !this.state.menuOpen }),
-      submit: () => { this.setState({ sent: true }); setTimeout(() => this.setState({ sent: false }), 2500); },
-      submitLabel: this.state.sent ? "MESSAGE SENT ✓" : "CONTACT US"
+      toggleMenu: () => this.setState({ menuOpen: !this.state.menuOpen })
     };
   }
 }
