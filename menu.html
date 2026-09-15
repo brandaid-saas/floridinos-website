@@ -418,7 +418,7 @@ class Component extends DCLogic {
       'Pazzo Pizza Muffins': 'assets/pizza-muffins.jpg',
       'Famous Wings': 'assets/wings.jpg',
       "Tyler's Famous Breadsticks": 'assets/breadsticks.jpg',
-      'More Appetizers': 'assets/wings.jpg',
+      'More Appetizers': 'assets/pepperoni.jpg',
       'Flatbread Pizzas': 'assets/flatbread.jpg',
       'Specialty Coffees': 'assets/dessert.jpg',
       'Desserts': 'assets/dessert.jpg',
@@ -457,10 +457,13 @@ class Component extends DCLogic {
       })
     });
     const mobileCats = (cats ?? []).map((c, ci) => ({ ...mapCat(c, ci), image: CATEGORY_IMAGE[c.title] ?? null }));
-    const view = (cats ?? [])
+    const activeCats = (cats ?? [])
       .map((c, ci) => ({ c, ci }))
-      .filter(({ c }) => (GROUP_OF[c.title] ?? [0]).includes(activeTab))
-      .map(({ c, ci }) => ({ ...mapCat(c, ci), image: CATEGORY_IMAGE[c.title] ?? null }));
+      .filter(({ c }) => (GROUP_OF[c.title] ?? [0]).includes(activeTab));
+    const view = activeCats.map(({ c, ci }, vi) => ({
+      ...mapCat(c, ci),
+      image: vi === 0 ? null : (CATEGORY_IMAGE[activeCats[vi - 1].c.title] ?? null)
+    }));
     return {
       cats: view, mobileCats, admin, canEdit, showLogin, isMobile: this.state.isMobile, isDesktop: !this.state.isMobile,
       tabs: GROUPS.map((label, i) => ({
