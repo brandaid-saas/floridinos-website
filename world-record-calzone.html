@@ -234,10 +234,15 @@ header{transition:background .2s}
           <div class="m-slider-slide" style="background-image:url('assets/calzone/1991-03.jpg')"></div>
           <div class="m-slider-slide" style="background-image:url('assets/calzone/1991-04.jpg')"></div>
           <div class="m-slider-slide" style="background-image:url('assets/calzone/1991-05.jpg')"></div>
+          <div class="m-slider-slide" style="background-image:url('assets/calzone/1991-06.jpg')"></div>
+          <div class="m-slider-slide" style="background-image:url('assets/calzone/1991-07.jpg')"></div>
+          <div class="m-slider-slide" style="background-image:url('assets/calzone/1991-08.jpg')"></div>
+          <div class="m-slider-slide" style="background-image:url('assets/calzone/1991-09.jpg')"></div>
+          <div class="m-slider-slide" style="background-image:url('assets/calzone/1991-10.jpg')"></div>
+          <div class="m-slider-slide" style="background-image:url('assets/calzone/1991-11.jpg')"></div>
         </div>
         <button type="button" class="m-slider-arrow m-slider-prev" aria-label="Previous photo">‹</button>
         <button type="button" class="m-slider-arrow m-slider-next" aria-label="Next photo">›</button>
-        <div class="m-slider-dots"></div>
       </div>
     </div>
     </div>
@@ -254,10 +259,21 @@ header{transition:background .2s}
           <div class="m-slider-slide" style="background-image:url('assets/calzone/1993-03.jpg')"></div>
           <div class="m-slider-slide" style="background-image:url('assets/calzone/1993-04.jpg')"></div>
           <div class="m-slider-slide" style="background-image:url('assets/calzone/1993-05.jpg')"></div>
+          <div class="m-slider-slide" style="background-image:url('assets/calzone/1993-06.jpg')"></div>
+          <div class="m-slider-slide" style="background-image:url('assets/calzone/1993-07.jpg')"></div>
+          <div class="m-slider-slide" style="background-image:url('assets/calzone/1993-08.jpg')"></div>
+          <div class="m-slider-slide" style="background-image:url('assets/calzone/1993-09.jpg')"></div>
+          <div class="m-slider-slide" style="background-image:url('assets/calzone/1993-10.jpg')"></div>
+          <div class="m-slider-slide" style="background-image:url('assets/calzone/1993-11.jpg')"></div>
+          <div class="m-slider-slide" style="background-image:url('assets/calzone/1993-12.jpg')"></div>
+          <div class="m-slider-slide" style="background-image:url('assets/calzone/1993-13.jpg')"></div>
+          <div class="m-slider-slide" style="background-image:url('assets/calzone/1993-14.jpg')"></div>
+          <div class="m-slider-slide" style="background-image:url('assets/calzone/1993-15.jpg')"></div>
+          <div class="m-slider-slide" style="background-image:url('assets/calzone/1993-16.jpg')"></div>
+          <div class="m-slider-slide" style="background-image:url('assets/calzone/1993-17.jpg')"></div>
         </div>
         <button type="button" class="m-slider-arrow m-slider-prev" aria-label="Previous photo">‹</button>
         <button type="button" class="m-slider-arrow m-slider-next" aria-label="Next photo">›</button>
-        <div class="m-slider-dots"></div>
       </div>
       <div>
         <div style="display:flex; align-items:center; gap:14px; margin-bottom:18px">
@@ -327,21 +343,10 @@ class Component extends DCLogic {
     document.querySelectorAll('[data-slider]').forEach((slider) => {
       const track = slider.querySelector('.m-slider-track');
       const slides = slider.querySelectorAll('.m-slider-slide');
-      const dotsWrap = slider.querySelector('.m-slider-dots');
       let idx = 0;
-      slides.forEach((_, i) => {
-        const dot = document.createElement('button');
-        dot.type = 'button';
-        dot.className = 'm-slider-dot' + (i === 0 ? ' active' : '');
-        dot.setAttribute('aria-label', 'Go to photo ' + (i + 1));
-        dot.addEventListener('click', () => go(i));
-        dotsWrap.appendChild(dot);
-      });
-      const dots = dotsWrap.querySelectorAll('.m-slider-dot');
       const go = (i) => {
         idx = (i + slides.length) % slides.length;
         track.style.transform = 'translateX(-' + (idx * 100) + '%)';
-        dots.forEach((d, di) => d.classList.toggle('active', di === idx));
       };
       slider.querySelector('.m-slider-prev').addEventListener('click', () => go(idx - 1));
       slider.querySelector('.m-slider-next').addEventListener('click', () => go(idx + 1));
