@@ -149,21 +149,24 @@ input::placeholder, textarea::placeholder{color:#6b6357}
         <div class="m-1col" style="display:grid; grid-template-columns:1fr 1fr; gap:30px; margin-bottom:30px">
           <label style="display:grid; align-content:start; gap:12px">
             <span style="font-size:11px; letter-spacing:3px; color:#d1c8bb; font-weight:600">NAME <span style="color:#d29a5a">*</span></span>
-            <input type="text" placeholder="John" style="background:#1a1512; border:1px solid #2a231d; color:#f8f8f8; padding:15px 16px; font-family:Inter, sans-serif; font-size:14px; outline:none" style-focus="border-color:#d29a5a">
+            <input type="text" placeholder="John" value="{{ name }}" onChange="{{ onName }}" style="background:#1a1512; border:1px solid #2a231d; color:#f8f8f8; padding:15px 16px; font-family:Inter, sans-serif; font-size:14px; outline:none" style-focus="border-color:#d29a5a">
           </label>
           <label style="display:grid; align-content:start; gap:12px">
             <span style="font-size:11px; letter-spacing:3px; color:#d1c8bb; font-weight:600">EMAIL ADDRESS <span style="color:#d29a5a">*</span></span>
-            <input type="email" placeholder="email@gmail.com" style="background:#1a1512; border:1px solid #2a231d; color:#f8f8f8; padding:15px 16px; font-family:Inter, sans-serif; font-size:14px; outline:none" style-focus="border-color:#d29a5a">
+            <input type="email" placeholder="email@gmail.com" value="{{ email }}" onChange="{{ onEmail }}" style="background:#1a1512; border:1px solid #2a231d; color:#f8f8f8; padding:15px 16px; font-family:Inter, sans-serif; font-size:14px; outline:none" style-focus="border-color:#d29a5a">
           </label>
         </div>
         <label style="display:grid; align-content:start; gap:12px; margin-bottom:30px">
           <span style="font-size:11px; letter-spacing:3px; color:#d1c8bb; font-weight:600">SUBJECT <span style="color:#d29a5a">*</span></span>
-          <input type="text" placeholder="Subject" style="background:#1a1512; border:1px solid #2a231d; color:#f8f8f8; padding:15px 16px; font-family:Inter, sans-serif; font-size:14px; outline:none" style-focus="border-color:#d29a5a">
+          <input type="text" placeholder="Subject" value="{{ subject }}" onChange="{{ onSubject }}" style="background:#1a1512; border:1px solid #2a231d; color:#f8f8f8; padding:15px 16px; font-family:Inter, sans-serif; font-size:14px; outline:none" style-focus="border-color:#d29a5a">
         </label>
         <label style="display:grid; align-content:start; gap:12px; margin-bottom:40px">
           <span style="font-size:11px; letter-spacing:3px; color:#d1c8bb; font-weight:600">COMMENTS / QUESTIONS <span style="color:#d29a5a">*</span></span>
-          <textarea placeholder="Question" rows="6" style="background:#1a1512; border:1px solid #2a231d; color:#f8f8f8; padding:15px 16px; font-family:Inter, sans-serif; font-size:14px; outline:none; resize:vertical" style-focus="border-color:#d29a5a"></textarea>
+          <textarea placeholder="Question" rows="6" value="{{ message }}" onChange="{{ onMessage }}" style="background:#1a1512; border:1px solid #2a231d; color:#f8f8f8; padding:15px 16px; font-family:Inter, sans-serif; font-size:14px; outline:none; resize:vertical" style-focus="border-color:#d29a5a"></textarea>
         </label>
+        <sc-if value="{{ error }}" hint-placeholder-val="{{ false }}">
+          <div style="color:#c96a5a; font-size:13px; margin-bottom:20px">{{ error }}</div>
+        </sc-if>
         <button onClick="{{ submit }}" class="m-btn" style="background:#d29a5a; color:#101e22; border:none; font-family:Inter, sans-serif; font-size:13px; font-weight:600; letter-spacing:3px; padding:19px 44px; cursor:pointer" style-hover="background:#f8f8f8">{{ submitLabel }}</button>
       </div>
     </div>
@@ -213,7 +216,7 @@ input::placeholder, textarea::placeholder{color:#6b6357}
 </x-dc>
 <script type="text/x-dc" data-dc-script>
 class Component extends DCLogic {
-  state = { sent: false, menuOpen: false, scrolled: false };
+  state = { sent: false, sending: false, error: '', menuOpen: false, scrolled: false, name: '', email: '', subject: '', message: '' };
   componentDidMount() {
     this._onScroll = () => { const s = window.scrollY > 60; if (s !== this.state.scrolled) this.setState({ scrolled: s }); };
     window.addEventListener('scroll', this._onScroll, { passive: true });
@@ -224,8 +227,38 @@ class Component extends DCLogic {
       menuOpen: this.state.menuOpen,
       hdrClass: this.state.scrolled ? 'hdr-stuck' : '',
       toggleMenu: () => this.setState({ menuOpen: !this.state.menuOpen }),
-      submit: () => { this.setState({ sent: true }); setTimeout(() => this.setState({ sent: false }), 2500); },
-      submitLabel: this.state.sent ? "MESSAGE SENT ✓" : "CONTACT US"
+      name: this.state.name,
+      onName: (e) => this.setState({ name: e.target.value }),
+      email: this.state.email,
+      onEmail: (e) => this.setState({ email: e.target.value }),
+      subject: this.state.subject,
+      onSubject: (e) => this.setState({ subject: e.target.value }),
+      message: this.state.message,
+      onMessage: (e) => this.setState({ message: e.target.value }),
+      error: this.state.error,
+      submit: async () => {
+        if (this.state.sending) return;
+        const { name, email, subject, message } = this.state;
+        if (!name.trim() || !email.trim() || !subject.trim() || !message.trim()) {
+          this.setState({ error: 'Please fill in all fields.' });
+          return;
+        }
+        this.setState({ sending: true, error: '' });
+        try {
+          const resp = await fetch('https://floridinos-api.designshak.workers.dev/api/contact', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ name, email, subject, message })
+          });
+          const data = await resp.json();
+          if (!resp.ok || !data.ok) throw new Error('failed');
+          this.setState({ sent: true, sending: false, name: '', email: '', subject: '', message: '' });
+          setTimeout(() => this.setState({ sent: false }), 4000);
+        } catch (e) {
+          this.setState({ sending: false, error: "Something went wrong — please try again or call us." });
+        }
+      },
+      submitLabel: this.state.sending ? "SENDING…" : (this.state.sent ? "MESSAGE SENT ✓" : "CONTACT US")
     };
   }
 }
