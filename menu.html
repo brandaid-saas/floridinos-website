@@ -144,6 +144,12 @@ input::placeholder, textarea::placeholder{color:#6b6357}
                       <input value="{{ fPrice }}" onChange="{{ onPrice }}" placeholder="$0.00" aria-label="Price" style="width:110px; background:#241c16; border:1px solid #3a2f25; color:#f8f8f8; padding:11px 13px; border-radius:6px; font-size:15px; text-align:right; outline:none" style-focus="border-color:#d29a5a">
                     </div>
                     <textarea value="{{ fDesc }}" onChange="{{ onDesc }}" rows="3" placeholder="Description" aria-label="Description" style="width:100%; box-sizing:border-box; background:#241c16; border:1px solid #3a2f25; color:#d1c8bb; padding:11px 13px; border-radius:6px; font-family:Inter, sans-serif; font-size:13.5px; resize:vertical; outline:none" style-focus="border-color:#d29a5a"></textarea>
+                    <sc-if value="{{ it.catImage }}" hint-placeholder-val="{{ false }}">
+                      <label style="display:flex; align-items:center; gap:8px; margin-top:12px; font-size:13px; color:#d1c8bb; cursor:pointer">
+                        <input type="checkbox" checked="{{ fHidePhoto }}" onChange="{{ onHidePhoto }}" style="accent-color:#d29a5a; width:16px; height:16px; cursor:pointer">
+                        Hide photo icon on mobile (category photo doesn't match this item)
+                      </label>
+                    </sc-if>
                     <div style="display:flex; gap:10px; margin-top:14px">
                       <button onClick="{{ saveItem }}" style="background:#d29a5a; color:#130f0c; border:none; font-family:Inter, sans-serif; font-size:13px; font-weight:600; letter-spacing:1px; padding:10px 22px; border-radius:6px; cursor:pointer" style-hover="background:#f8f8f8">Save</button>
                       <button onClick="{{ cancelEdit }}" style="background:transparent; color:#8f867a; border:1px solid #3a2f25; font-family:Inter, sans-serif; font-size:13px; padding:10px 18px; border-radius:6px; cursor:pointer" style-hover="color:#f8f8f8">Cancel</button>
@@ -199,6 +205,12 @@ input::placeholder, textarea::placeholder{color:#6b6357}
                       <input value="{{ fName }}" onChange="{{ onName }}" placeholder="Item name" aria-label="Item name" style="width:100%; box-sizing:border-box; background:#241c16; border:1px solid #3a2f25; color:#f8f8f8; padding:11px 13px; border-radius:6px; font-family:Raleway, sans-serif; font-size:16px; font-weight:600; outline:none; margin-bottom:10px" style-focus="border-color:#d29a5a">
                       <input value="{{ fPrice }}" onChange="{{ onPrice }}" placeholder="$0.00" aria-label="Price" style="width:110px; background:#241c16; border:1px solid #3a2f25; color:#f8f8f8; padding:11px 13px; border-radius:6px; font-size:15px; outline:none; margin-bottom:10px" style-focus="border-color:#d29a5a">
                       <textarea value="{{ fDesc }}" onChange="{{ onDesc }}" rows="3" placeholder="Description" aria-label="Description" style="width:100%; box-sizing:border-box; background:#241c16; border:1px solid #3a2f25; color:#d1c8bb; padding:11px 13px; border-radius:6px; font-family:Inter, sans-serif; font-size:13.5px; resize:vertical; outline:none" style-focus="border-color:#d29a5a"></textarea>
+                      <sc-if value="{{ it.catImage }}" hint-placeholder-val="{{ false }}">
+                        <label style="display:flex; align-items:center; gap:8px; margin-top:12px; font-size:13px; color:#d1c8bb; cursor:pointer">
+                          <input type="checkbox" checked="{{ fHidePhoto }}" onChange="{{ onHidePhoto }}" style="accent-color:#d29a5a; width:16px; height:16px; cursor:pointer; flex:none">
+                          Hide photo icon (category photo doesn't match this item)
+                        </label>
+                      </sc-if>
                       <div style="display:flex; gap:10px; margin-top:12px">
                         <button onClick="{{ saveItem }}" style="background:#d29a5a; color:#130f0c; border:none; font-family:Inter, sans-serif; font-size:13px; font-weight:600; letter-spacing:1px; padding:10px 22px; border-radius:6px; cursor:pointer" style-hover="background:#f8f8f8">Save</button>
                         <button onClick="{{ cancelEdit }}" style="background:transparent; color:#8f867a; border:1px solid #3a2f25; font-family:Inter, sans-serif; font-size:13px; padding:10px 18px; border-radius:6px; cursor:pointer" style-hover="color:#f8f8f8">Cancel</button>
@@ -210,7 +222,7 @@ input::placeholder, textarea::placeholder{color:#6b6357}
                   <sc-if value="{{ it.showRow }}" hint-placeholder-val="{{ true }}">
                     <div>
                       <div style="display:flex; justify-content:space-between; align-items:baseline; gap:14px">
-                        <span style="font-family:Raleway, sans-serif; color:#f8f8f8; font-size:18px; font-weight:600; line-height:1.5">{{ it.name }}<sc-if value="{{ it.catImage }}" hint-placeholder-val="{{ false }}"><span onClick="{{ it.viewPhoto }}" aria-label="View photo" style="display:inline-flex; align-items:center; justify-content:center; width:30px; height:30px; margin-left:6px; vertical-align:middle; cursor:pointer"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#d29a5a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg></span></sc-if><sc-if value="{{ it.canEdit }}" hint-placeholder-val="{{ false }}"><span style="font-family:Inter, sans-serif; font-size:11px; color:#d29a5a; margin-left:10px; letter-spacing:1px; cursor:pointer">&#9998; EDIT</span></sc-if></span>
+                        <span style="font-family:Raleway, sans-serif; color:#f8f8f8; font-size:18px; font-weight:600; line-height:1.5">{{ it.name }}<sc-if value="{{ it.showEye }}" hint-placeholder-val="{{ false }}"><span onClick="{{ it.viewPhoto }}" aria-label="View photo" style="display:inline-flex; align-items:center; justify-content:center; width:30px; height:30px; margin-left:6px; vertical-align:middle; cursor:pointer"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#d29a5a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg></span></sc-if><sc-if value="{{ it.canEdit }}" hint-placeholder-val="{{ false }}"><span style="font-family:Inter, sans-serif; font-size:11px; color:#d29a5a; margin-left:10px; letter-spacing:1px; cursor:pointer">&#9998; EDIT</span></sc-if></span>
                         <span style="font-family:Raleway, sans-serif; color:#f8f8f8; font-size:18px; font-weight:600; line-height:1.5">{{ it.price }}</span>
                       </div>
                       <div style="height:1.5px; background:#d29a5a; margin:5px 0"></div>
@@ -349,7 +361,7 @@ input::placeholder, textarea::placeholder{color:#6b6357}
 <script type="text/x-dc" data-dc-script>
 class Component extends DCLogic {
   state = { cats: null, admin: false, preview: false, showLogin: false, editing: null, isMobile: false, openCat: 0, menuOpen: false, scrolled: false,
-    fName: '', fPrice: '', fDesc: '', loginU: '', loginP: '', loginErr: false, linkSent: false, viewStats: null,
+    fName: '', fPrice: '', fDesc: '', fHidePhoto: false, loginU: '', loginP: '', loginErr: false, linkSent: false, viewStats: null,
     lightboxImage: null, lightboxLabel: '' };
   componentDidMount() {
     this._api = 'https://floridinos-api.designshak.workers.dev';
@@ -481,7 +493,7 @@ class Component extends DCLogic {
       },
       addItem: () => {
         const cats2 = this.mutate(m => m[ci].items.push({ name: 'New item', price: '$0.00', desc: '' }));
-        this.setKeep({ cats: cats2, editing: [ci, cats2[ci].items.length - 1], fName: 'New item', fPrice: '$0.00', fDesc: '' });
+        this.setKeep({ cats: cats2, editing: [ci, cats2[ci].items.length - 1], fName: 'New item', fPrice: '$0.00', fDesc: '', fHidePhoto: false });
       },
       items: c.items.map((it, ii) => {
         const isEditing = canEdit && !!editing && editing[0] === ci && editing[1] === ii;
@@ -490,8 +502,9 @@ class Component extends DCLogic {
           isEditing,
           showRow: !isEditing,
           canEdit,
-          open: () => { if (canEdit && !isEditing) this.setKeep({ editing: [ci, ii], fName: it.name, fPrice: it.price, fDesc: it.desc }); },
+          open: () => { if (canEdit && !isEditing) this.setKeep({ editing: [ci, ii], fName: it.name, fPrice: it.price, fDesc: it.desc, fHidePhoto: !!it.hidePhoto }); },
           catImage,
+          showEye: !!catImage && !it.hidePhoto,
           viewPhoto: (e) => { e.stopPropagation(); this.setState({ lightboxImage: catImage, lightboxLabel: it.name }); }
         };
       })
@@ -530,19 +543,21 @@ class Component extends DCLogic {
       hdrClass: this.state.scrolled ? 'hdr-stuck' : '',
       toggleMenu: () => this.setState({ menuOpen: !this.state.menuOpen }),
       loginErr: this.state.loginErr, loginU: this.state.loginU, loginP: this.state.loginP,
-      fName: this.state.fName, fPrice: this.state.fPrice, fDesc: this.state.fDesc,
+      fName: this.state.fName, fPrice: this.state.fPrice, fDesc: this.state.fDesc, fHidePhoto: this.state.fHidePhoto,
       modeLabel: preview ? 'Admin — viewing as guest' : 'Admin mode',
       previewLabel: preview ? 'Back to editing' : 'Preview guest view',
       dotColor: preview ? '#8f867a' : '#7fae7a',
       onName: (e) => this.setState({ fName: e.target.value }),
       onPrice: (e) => this.setState({ fPrice: e.target.value }),
       onDesc: (e) => this.setState({ fDesc: e.target.value }),
+      onHidePhoto: (e) => this.setState({ fHidePhoto: e.target.checked }),
       saveItem: () => {
         const [ci, ii] = this.state.editing;
         const cats2 = this.mutate(m => {
           m[ci].items[ii].name = this.state.fName.trim() || 'Untitled';
           m[ci].items[ii].price = this.state.fPrice.trim();
           m[ci].items[ii].desc = this.state.fDesc.trim();
+          m[ci].items[ii].hidePhoto = this.state.fHidePhoto;
         });
         this.setKeep({ cats: cats2, editing: null });
       },
