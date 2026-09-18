@@ -234,12 +234,12 @@ input::placeholder, textarea::placeholder{color:#6b6357}
         </div>
       </div>
     </div>
-    <div style="border-top:1px solid rgba(210,154,90,0.18); padding:26px 0; text-align:center; font-size:13px; color:#8f867a; max-width:1240px; margin:0 auto">&copy; 2026 Floridino's Italian Kitchen. All rights reserved. &nbsp;&middot;&nbsp; <span onClick="{{ openLogin }}" style="cursor:pointer; color:#8f867a" style-hover="color:#d29a5a">Staff Login</span></div>
     <sc-if value="{{ viewStats }}" hint-placeholder-val="{{ false }}">
-      <div style="text-align:center; padding:0 0 26px; font-size:12px; color:#5c554c">
+      <div style="text-align:center; padding:26px 0 0; font-size:12px; color:#8f867a; max-width:1240px; margin:0 auto">
         <sc-for list="{{ viewStats }}" as="m" hint-placeholder-count="2">{{ m.label }}: {{ m.count }} views &nbsp; </sc-for>
       </div>
     </sc-if>
+    <div style="border-top:1px solid rgba(210,154,90,0.18); padding:26px 0; text-align:center; font-size:13px; color:#8f867a; max-width:1240px; margin:0 auto">&copy; 2026 Floridino's Italian Kitchen. All rights reserved. &nbsp;&middot;&nbsp; <span onClick="{{ openLogin }}" style="cursor:pointer; color:#8f867a" style-hover="color:#d29a5a">Staff Login</span></div>
   </footer>
 
   <sc-if value="{{ admin }}" hint-placeholder-val="{{ false }}">
