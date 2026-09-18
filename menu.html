@@ -355,6 +355,7 @@ class Component extends DCLogic {
           try { sessionStorage.setItem('floridinos-token', d.token); } catch (e) {}
           this.setState({ admin: true });
           window.scrollTo({ top: 0 });
+          this.loadStats(d.token);
         })
         .catch(() => alert('That sign-in link is expired or already used. Request a new one from Staff Login.'));
     }
@@ -379,12 +380,13 @@ class Component extends DCLogic {
     fetch(this._api + '/api/track-view', { method: 'POST' }).catch(() => {});
     let staffToken = null;
     try { staffToken = sessionStorage.getItem('floridinos-token'); } catch (e) {}
-    if (staffToken) {
-      fetch(this._api + '/api/stats', { headers: { Authorization: 'Bearer ' + staffToken } })
-        .then(r => r.ok ? r.json() : null)
-        .then(d => { if (d && d.ok) this.setState({ viewStats: d.months }); })
-        .catch(() => {});
-    }
+    if (staffToken) this.loadStats(staffToken);
+  }
+  loadStats(token) {
+    fetch(this._api + '/api/stats', { headers: { Authorization: 'Bearer ' + token } })
+      .then(r => r.ok ? r.json() : null)
+      .then(d => { if (d && d.ok) this.setState({ viewStats: d.months }); })
+      .catch(() => {});
   }
   componentWillUnmount() { document.removeEventListener('keydown', this._esc); if (this._mq) this._mq.removeEventListener('change', this._onMq); window.removeEventListener('scroll', this._onScroll); }
   persist(cats) {
