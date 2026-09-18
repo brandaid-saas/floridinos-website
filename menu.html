@@ -177,7 +177,7 @@ input::placeholder, textarea::placeholder{color:#6b6357}
     <sc-if value="{{ isMobile }}" hint-placeholder-val="{{ false }}">
     <div style="padding:40px 0 30px">
       <sc-for list="{{ mobileCats }}" as="cat" hint-placeholder-count="5">
-        <div style="border-bottom:1px solid rgba(210,154,90,0.25)">
+        <div id="{{ cat.mSlug }}" style="border-bottom:1px solid rgba(210,154,90,0.25); scroll-margin-top:90px">
           <div onClick="{{ cat.toggle }}" style="display:flex; justify-content:space-between; align-items:center; gap:16px; padding:18px 20px; cursor:pointer; background:#191310">
             <div style="display:flex; align-items:center; gap:16px; min-width:0">
               <sc-if value="{{ cat.image }}" hint-placeholder-val="{{ false }}">
@@ -210,7 +210,7 @@ input::placeholder, textarea::placeholder{color:#6b6357}
                   <sc-if value="{{ it.showRow }}" hint-placeholder-val="{{ true }}">
                     <div>
                       <div style="display:flex; justify-content:space-between; align-items:baseline; gap:14px">
-                        <span style="font-family:Raleway, sans-serif; color:#f8f8f8; font-size:18px; font-weight:600; line-height:1.5">{{ it.name }}<sc-if value="{{ it.canEdit }}" hint-placeholder-val="{{ false }}"><span style="font-family:Inter, sans-serif; font-size:11px; color:#d29a5a; margin-left:10px; letter-spacing:1px; cursor:pointer">&#9998; EDIT</span></sc-if></span>
+                        <span style="font-family:Raleway, sans-serif; color:#f8f8f8; font-size:18px; font-weight:600; line-height:1.5">{{ it.name }}<sc-if value="{{ it.catImage }}" hint-placeholder-val="{{ false }}"><span onClick="{{ it.viewPhoto }}" aria-label="View photo" style="display:inline-flex; align-items:center; justify-content:center; width:30px; height:30px; margin-left:6px; vertical-align:middle; cursor:pointer"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#d29a5a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg></span></sc-if><sc-if value="{{ it.canEdit }}" hint-placeholder-val="{{ false }}"><span style="font-family:Inter, sans-serif; font-size:11px; color:#d29a5a; margin-left:10px; letter-spacing:1px; cursor:pointer">&#9998; EDIT</span></sc-if></span>
                         <span style="font-family:Raleway, sans-serif; color:#f8f8f8; font-size:18px; font-weight:600; line-height:1.5">{{ it.price }}</span>
                       </div>
                       <div style="height:1.5px; background:#d29a5a; margin:5px 0"></div>
@@ -335,12 +335,22 @@ input::placeholder, textarea::placeholder{color:#6b6357}
       </div>
     </div>
   </sc-if>
+
+  <sc-if value="{{ lightboxImage }}" hint-placeholder-val="{{ false }}">
+    <div onClick="{{ closeLightbox }}" style="position:fixed; inset:0; z-index:80; display:flex; flex-direction:column; align-items:center; justify-content:center; background:rgba(9,7,5,0.94); padding:24px">
+      <button onClick="{{ closeLightbox }}" aria-label="Close" style="position:absolute; top:20px; right:20px; background:transparent; border:none; color:#f8f8f8; font-size:34px; line-height:1; cursor:pointer; padding:6px">&times;</button>
+      <div onClick="{{ stopProp }}" role="img" aria-label="{{ lightboxLabel }}" style="width:100%; max-width:520px; aspect-ratio:4/3; background-image:url('{{ lightboxImage }}'); background-size:cover; background-position:center; border-radius:10px; box-shadow:0 30px 80px rgba(0,0,0,0.6)"></div>
+      <div style="margin-top:18px; font-family:Raleway, sans-serif; font-weight:700; font-size:19px; color:#f8f8f8; text-align:center">{{ lightboxLabel }}</div>
+      <div style="margin-top:6px; font-size:12.5px; color:#8f867a; text-align:center">Photo shows this category &mdash; may vary from the exact dish.</div>
+    </div>
+  </sc-if>
 </div>
 </x-dc>
 <script type="text/x-dc" data-dc-script>
 class Component extends DCLogic {
   state = { cats: null, admin: false, preview: false, showLogin: false, editing: null, isMobile: false, openCat: 0, menuOpen: false, scrolled: false,
-    fName: '', fPrice: '', fDesc: '', loginU: '', loginP: '', loginErr: false, linkSent: false, viewStats: null };
+    fName: '', fPrice: '', fDesc: '', loginU: '', loginP: '', loginErr: false, linkSent: false, viewStats: null,
+    lightboxImage: null, lightboxLabel: '' };
   componentDidMount() {
     this._api = 'https://floridinos-api.designshak.workers.dev';
     const linkTok = (location.hash.match(/login-token=([0-9a-f]{64})/) || [])[1];
@@ -450,13 +460,25 @@ class Component extends DCLogic {
       'Specialty Coffees': [4], 'Full Bar': [4], 'Desserts': [4]
     };
     const activeTab = this.state.activeTab ?? 0;
-    const mapCat = (c, ci) => ({
+    const mapCat = (c, ci) => {
+      const catImage = CATEGORY_IMAGE[c.title] ?? null;
+      return {
       ...c,
       slug: slugify(c.title),
       anchor: '#' + slugify(c.title),
+      mSlug: 'm-' + slugify(c.title),
       isOpen: this.state.openCat === ci,
       chevron: this.state.openCat === ci ? '\u2212' : '+',
-      toggle: () => this.setState({ openCat: this.state.openCat === ci ? null : ci, editing: null }),
+      toggle: () => {
+        const opening = this.state.openCat !== ci;
+        this.setState({ openCat: opening ? ci : null, editing: null });
+        if (opening) {
+          requestAnimationFrame(() => {
+            const el = document.getElementById('m-' + slugify(c.title));
+            if (el) el.scrollIntoView({ block: 'start' });
+          });
+        }
+      },
       addItem: () => {
         const cats2 = this.mutate(m => m[ci].items.push({ name: 'New item', price: '$0.00', desc: '' }));
         this.setKeep({ cats: cats2, editing: [ci, cats2[ci].items.length - 1], fName: 'New item', fPrice: '$0.00', fDesc: '' });
@@ -468,10 +490,13 @@ class Component extends DCLogic {
           isEditing,
           showRow: !isEditing,
           canEdit,
-          open: () => { if (canEdit && !isEditing) this.setKeep({ editing: [ci, ii], fName: it.name, fPrice: it.price, fDesc: it.desc }); }
+          open: () => { if (canEdit && !isEditing) this.setKeep({ editing: [ci, ii], fName: it.name, fPrice: it.price, fDesc: it.desc }); },
+          catImage,
+          viewPhoto: (e) => { e.stopPropagation(); this.setState({ lightboxImage: catImage, lightboxLabel: it.name }); }
         };
       })
-    });
+    };
+    };
     const mobileCats = (cats ?? []).map((c, ci) => ({ ...mapCat(c, ci), image: CATEGORY_IMAGE[c.title] ?? null }));
     const activeCats = (cats ?? [])
       .map((c, ci) => ({ c, ci }))
@@ -484,6 +509,10 @@ class Component extends DCLogic {
       cats: view, mobileCats, admin, canEdit, showLogin, isMobile: this.state.isMobile, isDesktop: !this.state.isMobile,
       viewStats: this.state.viewStats,
       adminPad: admin ? '90px' : '0',
+      lightboxImage: this.state.lightboxImage,
+      lightboxLabel: this.state.lightboxLabel,
+      closeLightbox: () => this.setState({ lightboxImage: null }),
+      stopProp: (e) => e.stopPropagation(),
       tabs: GROUPS.map((label, i) => ({
         label, active: i === activeTab,
         color: i === activeTab ? '#130f0c' : '#d29a5a',
