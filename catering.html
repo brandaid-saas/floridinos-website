@@ -25,6 +25,7 @@ a:hover{color:#f8f8f8}
 .m-mobilehide{display:inline-block}
 .m-dropdown-panel{display:none; position:absolute; top:100%; left:0; background:#191310; border:1px solid rgba(210,154,90,0.3); min-width:190px; z-index:60; padding:6px 0; box-shadow:0 12px 30px rgba(0,0,0,0.4)}
 .m-dropdown:hover .m-dropdown-panel, .m-dropdown:focus-within .m-dropdown-panel{display:block}
+.m-skip:focus{left:16px !important}
 header{transition:background .2s}
 .hdr-stuck{background:rgba(19,15,12,0.5) !important; backdrop-filter:blur(10px); animation:hdrDown .35s ease}
 @keyframes hdrDown{from{transform:translateY(-100%)}to{transform:translateY(0)}}
@@ -62,6 +63,7 @@ input::placeholder, textarea::placeholder{color:#6b6357}
 </style>
 </helmet>
 <div class="m-site" style="font-family:Inter, sans-serif; color:#d1c8bb; background:#130f0c; min-width:1100px">
+  <a href="#main" class="m-skip" style="position:absolute; left:-9999px; top:16px; z-index:100; background:#d29a5a; color:#130f0c; padding:14px 22px; font-family:Inter, sans-serif; font-weight:600; font-size:14px">Skip to main content</a>
   <header class="m-hdr {{ hdrClass }}" style="position:fixed; top:0; left:0; right:0; z-index:50; display:flex; align-items:center; justify-content:flex-start; padding:20px 56px; gap:32px">
     <a href="/" style="display:block; position:relative; width:232px; height:66px; flex:none">
       <img src="assets/floridinos-logo.png" alt="Floridino's Italian Kitchen — Since 1988, From Our Family to Yours" class="m-logo" style="position:absolute; top:0; left:0; height:140px; width:232px; object-fit:contain; z-index:5">
@@ -100,7 +102,7 @@ input::placeholder, textarea::placeholder{color:#6b6357}
     <span>CALL 863-353-2670</span>
   </a>
 
-  <section data-screen-label="Catering Hero" class="m-par m-bighero" style="position:relative; height:560px; display:flex; align-items:center; justify-content:center; overflow:hidden; background-image:url('assets/pizza-muffin-tower.jpg'); background-size:cover; background-position:center; background-attachment:fixed">
+  <section id="main" data-screen-label="Catering Hero" class="m-par m-bighero" style="position:relative; height:560px; display:flex; align-items:center; justify-content:center; overflow:hidden; background-image:url('assets/pizza-muffin-tower.jpg'); background-size:cover; background-position:center; background-attachment:fixed">
     <div style="position:absolute; inset:0; background:rgba(19,15,12,0.55)"></div>
     <h1 style="position:relative; font-family:Raleway, sans-serif; font-weight:800; font-size:74px; letter-spacing:6px; color:#f8f8f8; margin:0; text-shadow:0 2px 30px rgba(0,0,0,0.55)">CATERING</h1>
   </section>
@@ -116,7 +118,7 @@ input::placeholder, textarea::placeholder{color:#6b6357}
       <p style="font-size:16px; line-height:1.9; margin:0">Catering is available for groups of ten to one thousand — excellent dining for formal or informal events such as dinner parties, banquets, graduations, weddings, rehearsal dinners, church gatherings, meetings, or whenever you want to serve delicious food. All menu items are made fresh daily.</p>
       <div style="display:flex; align-items:center; justify-content:center; gap:20px; margin-top:40px; flex-wrap:wrap">
         <a href="tel:+18633532670" class="m-btn m-mobilehide" style="display:inline-block; background:#d29a5a; color:#101e22; font-size:13px; font-weight:700; letter-spacing:3px; padding:19px 38px" style-hover="background:#f8f8f8">CALL 863-353-2670</a>
-        <a href="assets/FloridinosCateringMenu.pdf" target="_blank" rel="noopener" class="m-btn m-mobilehide" style="display:inline-block; border:1px solid #d29a5a; color:#d29a5a; font-size:13px; font-weight:600; letter-spacing:3px; padding:18px 38px" style-hover="color:#f8f8f8; border-color:#f8f8f8">DOWNLOAD FULL PDF</a>
+        <a href="assets/FloridinosCateringMenu.pdf" target="_blank" rel="noopener" aria-label="Download full catering menu PDF (opens in a new tab)" class="m-btn m-mobilehide" style="display:inline-block; border:1px solid #d29a5a; color:#d29a5a; font-size:13px; font-weight:600; letter-spacing:3px; padding:18px 38px" style-hover="color:#f8f8f8; border-color:#f8f8f8">DOWNLOAD FULL PDF</a>
       </div>
     </div>
   </section>
