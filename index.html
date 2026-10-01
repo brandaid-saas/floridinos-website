@@ -124,7 +124,11 @@ header{transition:background .2s}
   <section data-screen-label="The Story" style="padding:40px 56px 150px">
     <div class="m-1col" style="max-width:1295px; margin:0 auto; display:grid; grid-template-columns:0.55fr 1fr 0.85fr; gap:0; align-items:center">
       <img src="assets/story-restaurant-01.jpg" alt="Inside Floridino's Italian Kitchen" class="m-img" style="width:calc(100% - 30px); height:560px; object-fit:cover; object-position:40% 50%; display:block">
-      <img src="assets/story-restaurant-02b.jpg" alt="Guests dining at Floridino's Italian Kitchen" class="m-img" style="width:calc(100% - 40px); height:640px; object-fit:cover; object-position:75% 50%; display:block">
+      <div class="m-img" style="position:relative; width:calc(100% - 40px); height:640px; overflow:hidden">
+        <sc-for list="{{ storySlides }}" as="slide" hint-placeholder-count="5">
+          <div style="position:absolute; inset:0; background-image:url('{{ slide.src }}'); background-size:cover; background-position:center; opacity:{{ slide.opacity }}; transition:opacity 1.8s ease"></div>
+        </sc-for>
+      </div>
       <div>
         <div class="m-card" style="background:#f8f5ef; padding:70px 56px; margin-left:-70px; position:relative; z-index:2">
           <div style="display:flex; align-items:center; justify-content:center; gap:14px; margin-bottom:20px">
@@ -296,7 +300,8 @@ header{transition:background .2s}
 </x-dc>
 <script type="text/x-dc" data-dc-script data-props="{&quot;showQuote&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Sections&quot;}}">
 class Component extends DCLogic {
-  state = { specials: null, menuOpen: false, scrolled: false, rIdx: 0, qOpacity: 1, viewStats: null };
+  state = { specials: null, menuOpen: false, scrolled: false, rIdx: 0, qOpacity: 1, viewStats: null, storyIdx: 0 };
+  STORY_SLIDES = ['story-slide-1.jpg', 'story-slide-2.jpg', 'story-slide-3.jpg', 'story-slide-4.jpg', 'story-slide-5.jpg'];
   // Real 4-5 star Google reviews for the Lake Hamilton location.
   // PRODUCTION: fetch these server-side via the Google Places API (place details > reviews, filtered to rating >= 4).
   REVIEWS = [
@@ -324,6 +329,9 @@ class Component extends DCLogic {
       this.setState({ qOpacity: 0 });
       setTimeout(() => this.setState({ rIdx: (this.state.rIdx + 1) % this.REVIEWS.length, qOpacity: 1 }), 450);
     }, 6500);
+    this._storyTimer = setInterval(() => {
+      this.setState({ storyIdx: (this.state.storyIdx + 1) % this.STORY_SLIDES.length });
+    }, 4500);
     this._onScroll = () => { const s = window.scrollY > 60; if (s !== this.state.scrolled) this.setState({ scrolled: s }); };
     window.addEventListener('scroll', this._onScroll, { passive: true });
     this._onScroll();
@@ -340,6 +348,7 @@ class Component extends DCLogic {
   renderVals() {
     return {
       showQuote: this.props.showQuote ?? true,
+      storySlides: this.STORY_SLIDES.map((f, i) => ({ src: 'assets/' + f, opacity: i === this.state.storyIdx ? 1 : 0 })),
       viewStats: this.state.viewStats,
       menuOpen: this.state.menuOpen,
       hdrClass: this.state.scrolled ? 'hdr-stuck' : '',
