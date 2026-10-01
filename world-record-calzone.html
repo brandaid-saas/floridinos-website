@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
 <meta charset="utf-8">
 <script>(function(){if(location.protocol==="http:"&&/floridinositaliankitchen\.com$/.test(location.hostname)){location.replace("https://"+location.host+location.pathname+location.search+location.hash);}})()</script>
@@ -23,7 +23,7 @@ a:hover{color:#f8f8f8}
 .m-callbar{display:none}
 .m-mobilehide{display:inline-block}
 .m-dropdown-panel{display:none; position:absolute; top:100%; left:0; background:#191310; border:1px solid rgba(210,154,90,0.3); min-width:190px; z-index:60; padding:6px 0; box-shadow:0 12px 30px rgba(0,0,0,0.4)}
-.m-dropdown:hover .m-dropdown-panel{display:block}
+.m-dropdown:hover .m-dropdown-panel, .m-dropdown:focus-within .m-dropdown-panel{display:block}
 header{transition:background .2s}
 .hdr-stuck{background:rgba(19,15,12,0.5) !important; backdrop-filter:blur(10px); animation:hdrDown .35s ease}
 @keyframes hdrDown{from{transform:translateY(-100%)}to{transform:translateY(0)}}
@@ -104,11 +104,11 @@ header{transition:background .2s}
       <a href="/contact" style="font-size:16px; letter-spacing:1.8px; font-weight:500; color:#f8f8f8; text-shadow:0 1px 4px rgba(0,0,0,0.55)" style-hover="color:#d29a5a; text-decoration:underline; text-underline-offset:8px; text-decoration-thickness:2px; text-decoration-color:#d29a5a">CONTACT</a>
     </nav>
     <a href="tel:+18633532670" class="m-hphone" style="font-size:17px; letter-spacing:0.8px; font-weight:700; color:#f8f8f8; border:1.5px solid #f8f8f8; padding:13px 24px; white-space:nowrap" style-hover="color:#130f0c; background:#d29a5a; border-color:#d29a5a">863-353-2670</a>
-    <div class="m-burger" onClick="{{ toggleMenu }}" style="display:none; flex-direction:column; gap:5px; cursor:pointer; padding:6px 2px; margin-left:auto">
+    <button type="button" class="m-burger" onClick="{{ toggleMenu }}" aria-label="Menu" aria-expanded="{{ menuOpen }}" style="display:none; flex-direction:column; gap:5px; cursor:pointer; padding:6px 2px; margin-left:auto; background:transparent; border:none">
       <span style="width:24px; height:2px; background:#f8f8f8"></span>
       <span style="width:24px; height:2px; background:#f8f8f8"></span>
       <span style="width:24px; height:2px; background:#f8f8f8"></span>
-    </div>
+    </button>
   </header>
   <sc-if value="{{ menuOpen }}" hint-placeholder-val="{{ false }}">
     <div style="position:fixed; top:64px; left:0; right:0; z-index:45; background:#191310; border-bottom:1px solid rgba(210,154,90,0.3); display:grid">
@@ -230,17 +230,17 @@ header{transition:background .2s}
       </div>
       <div class="m-slider" data-slider>
         <div class="m-slider-track">
-          <div class="m-slider-slide"><img src="assets/calzone/1991-01.jpg" alt="" loading="lazy" decoding="async"></div>
-          <div class="m-slider-slide"><img src="assets/calzone/1991-02.jpg" alt="" loading="lazy" decoding="async"></div>
-          <div class="m-slider-slide"><img src="assets/calzone/1991-03.jpg" alt="" loading="lazy" decoding="async"></div>
-          <div class="m-slider-slide"><img src="assets/calzone/1991-04.jpg" alt="" loading="lazy" decoding="async"></div>
-          <div class="m-slider-slide"><img src="assets/calzone/1991-05.jpg" alt="" loading="lazy" decoding="async"></div>
-          <div class="m-slider-slide"><img src="assets/calzone/1991-06.jpg" alt="" loading="lazy" decoding="async"></div>
-          <div class="m-slider-slide"><img src="assets/calzone/1991-07.jpg" alt="" loading="lazy" decoding="async"></div>
-          <div class="m-slider-slide"><img src="assets/calzone/1991-08.jpg" alt="" loading="lazy" decoding="async"></div>
-          <div class="m-slider-slide"><img src="assets/calzone/1991-09.jpg" alt="" loading="lazy" decoding="async"></div>
-          <div class="m-slider-slide"><img src="assets/calzone/1991-10.jpg" alt="" loading="lazy" decoding="async"></div>
-          <div class="m-slider-slide"><img src="assets/calzone/1991-11.jpg" alt="" loading="lazy" decoding="async"></div>
+          <div class="m-slider-slide"><img src="assets/calzone/1991-01.jpg" alt="Photo 1 of 11 from the 1991 Floridino's world record calzone event" loading="lazy" decoding="async"></div>
+          <div class="m-slider-slide"><img src="assets/calzone/1991-02.jpg" alt="Photo 2 of 11 from the 1991 Floridino's world record calzone event" loading="lazy" decoding="async"></div>
+          <div class="m-slider-slide"><img src="assets/calzone/1991-03.jpg" alt="Photo 3 of 11 from the 1991 Floridino's world record calzone event" loading="lazy" decoding="async"></div>
+          <div class="m-slider-slide"><img src="assets/calzone/1991-04.jpg" alt="Photo 4 of 11 from the 1991 Floridino's world record calzone event" loading="lazy" decoding="async"></div>
+          <div class="m-slider-slide"><img src="assets/calzone/1991-05.jpg" alt="Photo 5 of 11 from the 1991 Floridino's world record calzone event" loading="lazy" decoding="async"></div>
+          <div class="m-slider-slide"><img src="assets/calzone/1991-06.jpg" alt="Photo 6 of 11 from the 1991 Floridino's world record calzone event" loading="lazy" decoding="async"></div>
+          <div class="m-slider-slide"><img src="assets/calzone/1991-07.jpg" alt="Photo 7 of 11 from the 1991 Floridino's world record calzone event" loading="lazy" decoding="async"></div>
+          <div class="m-slider-slide"><img src="assets/calzone/1991-08.jpg" alt="Photo 8 of 11 from the 1991 Floridino's world record calzone event" loading="lazy" decoding="async"></div>
+          <div class="m-slider-slide"><img src="assets/calzone/1991-09.jpg" alt="Photo 9 of 11 from the 1991 Floridino's world record calzone event" loading="lazy" decoding="async"></div>
+          <div class="m-slider-slide"><img src="assets/calzone/1991-10.jpg" alt="Photo 10 of 11 from the 1991 Floridino's world record calzone event" loading="lazy" decoding="async"></div>
+          <div class="m-slider-slide"><img src="assets/calzone/1991-11.jpg" alt="Photo 11 of 11 from the 1991 Floridino's world record calzone event" loading="lazy" decoding="async"></div>
         </div>
         <button type="button" class="m-slider-arrow m-slider-prev" aria-label="Previous photo">‹</button>
         <button type="button" class="m-slider-arrow m-slider-next" aria-label="Next photo">›</button>
@@ -255,23 +255,23 @@ header{transition:background .2s}
     <div class="m-story" style="max-width:1240px; margin:0 auto; display:grid; grid-template-columns:0.95fr 1.05fr; gap:100px; align-items:center">
       <div class="m-slider" data-slider>
         <div class="m-slider-track">
-          <div class="m-slider-slide"><img src="assets/calzone/1993-01.jpg" alt="" loading="lazy" decoding="async"></div>
-          <div class="m-slider-slide"><img src="assets/calzone/1993-02.jpg" alt="" loading="lazy" decoding="async"></div>
-          <div class="m-slider-slide"><img src="assets/calzone/1993-03.jpg" alt="" loading="lazy" decoding="async"></div>
-          <div class="m-slider-slide"><img src="assets/calzone/1993-04.jpg" alt="" loading="lazy" decoding="async"></div>
-          <div class="m-slider-slide"><img src="assets/calzone/1993-05.jpg" alt="" loading="lazy" decoding="async"></div>
-          <div class="m-slider-slide"><img src="assets/calzone/1993-06.jpg" alt="" loading="lazy" decoding="async"></div>
-          <div class="m-slider-slide"><img src="assets/calzone/1993-07.jpg" alt="" loading="lazy" decoding="async"></div>
-          <div class="m-slider-slide"><img src="assets/calzone/1993-08.jpg" alt="" loading="lazy" decoding="async"></div>
-          <div class="m-slider-slide"><img src="assets/calzone/1993-09.jpg" alt="" loading="lazy" decoding="async"></div>
-          <div class="m-slider-slide"><img src="assets/calzone/1993-10.jpg" alt="" loading="lazy" decoding="async"></div>
-          <div class="m-slider-slide"><img src="assets/calzone/1993-11.jpg" alt="" loading="lazy" decoding="async"></div>
-          <div class="m-slider-slide"><img src="assets/calzone/1993-12.jpg" alt="" loading="lazy" decoding="async"></div>
-          <div class="m-slider-slide"><img src="assets/calzone/1993-13.jpg" alt="" loading="lazy" decoding="async"></div>
-          <div class="m-slider-slide"><img src="assets/calzone/1993-14.jpg" alt="" loading="lazy" decoding="async"></div>
-          <div class="m-slider-slide"><img src="assets/calzone/1993-15.jpg" alt="" loading="lazy" decoding="async"></div>
-          <div class="m-slider-slide"><img src="assets/calzone/1993-16.jpg" alt="" loading="lazy" decoding="async"></div>
-          <div class="m-slider-slide"><img src="assets/calzone/1993-17.jpg" alt="" loading="lazy" decoding="async"></div>
+          <div class="m-slider-slide"><img src="assets/calzone/1993-01.jpg" alt="Photo 1 of 17 from the 1993 Floridino's world record calzone event" loading="lazy" decoding="async"></div>
+          <div class="m-slider-slide"><img src="assets/calzone/1993-02.jpg" alt="Photo 2 of 17 from the 1993 Floridino's world record calzone event" loading="lazy" decoding="async"></div>
+          <div class="m-slider-slide"><img src="assets/calzone/1993-03.jpg" alt="Photo 3 of 17 from the 1993 Floridino's world record calzone event" loading="lazy" decoding="async"></div>
+          <div class="m-slider-slide"><img src="assets/calzone/1993-04.jpg" alt="Photo 4 of 17 from the 1993 Floridino's world record calzone event" loading="lazy" decoding="async"></div>
+          <div class="m-slider-slide"><img src="assets/calzone/1993-05.jpg" alt="Photo 5 of 17 from the 1993 Floridino's world record calzone event" loading="lazy" decoding="async"></div>
+          <div class="m-slider-slide"><img src="assets/calzone/1993-06.jpg" alt="1993 Florida Department of Agriculture certification letter for the 409 ft. world record calzone, alongside a photo of the calzone on the assembly line" loading="lazy" decoding="async"></div>
+          <div class="m-slider-slide"><img src="assets/calzone/1993-07.jpg" alt="Photo 7 of 17 from the 1993 Floridino's world record calzone event" loading="lazy" decoding="async"></div>
+          <div class="m-slider-slide"><img src="assets/calzone/1993-08.jpg" alt="Photo 8 of 17 from the 1993 Floridino's world record calzone event" loading="lazy" decoding="async"></div>
+          <div class="m-slider-slide"><img src="assets/calzone/1993-09.jpg" alt="Photo 9 of 17 from the 1993 Floridino's world record calzone event" loading="lazy" decoding="async"></div>
+          <div class="m-slider-slide"><img src="assets/calzone/1993-10.jpg" alt="Photo 10 of 17 from the 1993 Floridino's world record calzone event" loading="lazy" decoding="async"></div>
+          <div class="m-slider-slide"><img src="assets/calzone/1993-11.jpg" alt="Photo 11 of 17 from the 1993 Floridino's world record calzone event" loading="lazy" decoding="async"></div>
+          <div class="m-slider-slide"><img src="assets/calzone/1993-12.jpg" alt="Photo 12 of 17 from the 1993 Floridino's world record calzone event" loading="lazy" decoding="async"></div>
+          <div class="m-slider-slide"><img src="assets/calzone/1993-13.jpg" alt="Photo 13 of 17 from the 1993 Floridino's world record calzone event" loading="lazy" decoding="async"></div>
+          <div class="m-slider-slide"><img src="assets/calzone/1993-14.jpg" alt="Photo 14 of 17 from the 1993 Floridino's world record calzone event" loading="lazy" decoding="async"></div>
+          <div class="m-slider-slide"><img src="assets/calzone/1993-15.jpg" alt="Photo 15 of 17 from the 1993 Floridino's world record calzone event" loading="lazy" decoding="async"></div>
+          <div class="m-slider-slide"><img src="assets/calzone/1993-16.jpg" alt="Photo 16 of 17 from the 1993 Floridino's world record calzone event" loading="lazy" decoding="async"></div>
+          <div class="m-slider-slide"><img src="assets/calzone/1993-17.jpg" alt="Photo 17 of 17 from the 1993 Floridino's world record calzone event" loading="lazy" decoding="async"></div>
         </div>
         <button type="button" class="m-slider-arrow m-slider-prev" aria-label="Previous photo">‹</button>
         <button type="button" class="m-slider-arrow m-slider-next" aria-label="Next photo">›</button>
