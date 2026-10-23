@@ -132,8 +132,19 @@ input::placeholder, textarea::placeholder{color:#6b6357}
               <span style="color:#d29a5a; font-size:15px; padding:0 14px">&#10033;</span>
               <span style="width:130px; height:2px; background:rgba(210,154,90,0.6)"></span>
             </div>
-            <sc-if value="{{ cat.note }}" hint-placeholder-val="{{ false }}">
-              <div style="font-size:14px; font-weight:300; color:#8f867a; max-width:560px; margin:22px auto 0; line-height:1.6; padding:0 20px">{{ cat.note }}</div>
+            <sc-if value="{{ cat.showNote }}" hint-placeholder-val="{{ false }}">
+              <div onClick="{{ cat.openNote }}" style="font-size:14px; font-weight:300; color:#8f867a; max-width:560px; margin:22px auto 0; line-height:1.6; padding:0 20px">{{ cat.noteText }}<sc-if value="{{ canEdit }}" hint-placeholder-val="{{ false }}"><span style="font-family:Inter, sans-serif; font-size:11px; font-weight:400; color:#d29a5a; margin-left:10px; letter-spacing:1px; cursor:pointer">&#9998; EDIT</span></sc-if></div>
+            </sc-if>
+            <sc-if value="{{ cat.isEditingNote }}" hint-placeholder-val="{{ false }}">
+              <div style="max-width:560px; margin:22px auto 0; padding:0 20px; text-align:left">
+                <div style="background:#1a1512; border:1px solid rgba(210,154,90,0.5); border-radius:8px; padding:18px">
+                  <textarea value="{{ fNote }}" onChange="{{ onNote }}" rows="3" placeholder="Section note (shown under the heading)" aria-label="Section note" style="width:100%; box-sizing:border-box; background:#241c16; border:1px solid #3a2f25; color:#d1c8bb; padding:11px 13px; border-radius:6px; font-family:Inter, sans-serif; font-size:13.5px; resize:vertical; outline:none" style-focus="border-color:#d29a5a"></textarea>
+                  <div style="display:flex; gap:10px; margin-top:14px">
+                    <button onClick="{{ saveNote }}" style="background:#d29a5a; color:#130f0c; border:none; font-family:Inter, sans-serif; font-size:13px; font-weight:600; letter-spacing:1px; padding:10px 22px; border-radius:6px; cursor:pointer" style-hover="background:#f8f8f8">Save</button>
+                    <button onClick="{{ cancelEdit }}" style="background:transparent; color:#8f867a; border:1px solid #3a2f25; font-family:Inter, sans-serif; font-size:13px; padding:10px 18px; border-radius:6px; cursor:pointer" style-hover="color:#f8f8f8">Cancel</button>
+                  </div>
+                </div>
+              </div>
             </sc-if>
           </div>
           <div style="display:grid; grid-template-columns:1fr 1fr; gap:0 90px; padding:80px 67px 60px; align-items:start">
@@ -191,8 +202,17 @@ input::placeholder, textarea::placeholder{color:#6b6357}
           </div>
           <sc-if value="{{ cat.isOpen }}" hint-placeholder-val="{{ false }}">
             <div style="padding:26px 20px 34px">
-              <sc-if value="{{ cat.note }}" hint-placeholder-val="{{ false }}">
-                <div style="font-size:13.5px; font-weight:300; color:#8f867a; line-height:1.6; margin-bottom:26px">{{ cat.note }}</div>
+              <sc-if value="{{ cat.showNote }}" hint-placeholder-val="{{ false }}">
+                <div onClick="{{ cat.openNote }}" style="font-size:13.5px; font-weight:300; color:#8f867a; line-height:1.6; margin-bottom:26px">{{ cat.noteText }}<sc-if value="{{ canEdit }}" hint-placeholder-val="{{ false }}"><span style="font-family:Inter, sans-serif; font-size:11px; font-weight:400; color:#d29a5a; margin-left:10px; letter-spacing:1px; cursor:pointer">&#9998; EDIT</span></sc-if></div>
+              </sc-if>
+              <sc-if value="{{ cat.isEditingNote }}" hint-placeholder-val="{{ false }}">
+                <div style="background:#1a1512; border:1px solid rgba(210,154,90,0.5); border-radius:8px; padding:14px; margin-bottom:26px">
+                  <textarea value="{{ fNote }}" onChange="{{ onNote }}" rows="3" placeholder="Section note (shown under the heading)" aria-label="Section note" style="width:100%; box-sizing:border-box; background:#241c16; border:1px solid #3a2f25; color:#d1c8bb; padding:11px 13px; border-radius:6px; font-family:Inter, sans-serif; font-size:13.5px; resize:vertical; outline:none" style-focus="border-color:#d29a5a"></textarea>
+                  <div style="display:flex; gap:10px; margin-top:12px">
+                    <button onClick="{{ saveNote }}" style="background:#d29a5a; color:#130f0c; border:none; font-family:Inter, sans-serif; font-size:13px; font-weight:600; letter-spacing:1px; padding:10px 22px; border-radius:6px; cursor:pointer" style-hover="background:#f8f8f8">Save</button>
+                    <button onClick="{{ cancelEdit }}" style="background:transparent; color:#8f867a; border:1px solid #3a2f25; font-family:Inter, sans-serif; font-size:13px; padding:10px 18px; border-radius:6px; cursor:pointer" style-hover="color:#f8f8f8">Cancel</button>
+                  </div>
+                </div>
               </sc-if>
               <sc-for list="{{ cat.items }}" as="it" hint-placeholder-count="4">
                 <div onClick="{{ it.open }}" style="padding-bottom:30px">
@@ -363,7 +383,7 @@ class Component extends DCLogic {
         this.setState({ cats, admin });
       })
       .catch(() => this.setState({ cats: [] }));
-    this._esc = (e) => { if (e.key === 'Escape') this.setState({ editing: null, showLogin: false }); };
+    this._esc = (e) => { if (e.key === 'Escape') this.setState({ editing: null, editingNote: null, showLogin: false }); };
     document.addEventListener('keydown', this._esc);
     this._mq = window.matchMedia('(max-width:780px)');
     this._onMq = (e) => this.setState({ isMobile: e.matches });
@@ -412,7 +432,7 @@ class Component extends DCLogic {
     requestAnimationFrame(() => { window.scrollTo(0, y); setTimeout(() => window.scrollTo(0, y), 80); });
   }
   renderVals() {
-    const { cats, admin, preview, editing, showLogin } = this.state;
+    const { cats, admin, preview, editing, editingNote, showLogin } = this.state;
     const canEdit = admin && !preview;
     const CATEGORY_IMAGE = {
       'Salads': 'assets/salad.jpg',
@@ -465,9 +485,13 @@ class Component extends DCLogic {
         }
       },
       toggleKey: (e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); e.currentTarget.click(); } },
+      isEditingNote: canEdit && editingNote === ci,
+      showNote: !(canEdit && editingNote === ci) && (!!c.note || canEdit),
+      noteText: c.note || (canEdit ? 'Add a section note' : ''),
+      openNote: () => { if (canEdit) this.setKeep({ editing: null, editingNote: ci, fNote: c.note || '' }); },
       addItem: () => {
         const cats2 = this.mutate(m => m[ci].items.push({ name: 'New item', price: '$0.00', desc: '' }));
-        this.setKeep({ cats: cats2, editing: [ci, cats2[ci].items.length - 1], fName: 'New item', fPrice: '$0.00', fDesc: '' });
+        this.setKeep({ cats: cats2, editing: [ci, cats2[ci].items.length - 1], editingNote: null, fName: 'New item', fPrice: '$0.00', fDesc: '' });
       },
       items: c.items.map((it, ii) => {
         const isEditing = canEdit && !!editing && editing[0] === ci && editing[1] === ii;
@@ -476,7 +500,7 @@ class Component extends DCLogic {
           isEditing,
           showRow: !isEditing,
           canEdit,
-          open: () => { if (canEdit && !isEditing) this.setKeep({ editing: [ci, ii], fName: it.name, fPrice: it.price, fDesc: it.desc }); },
+          open: () => { if (canEdit && !isEditing) this.setKeep({ editing: [ci, ii], editingNote: null, fName: it.name, fPrice: it.price, fDesc: it.desc }); },
           catImage,
           viewPhoto: (e) => { e.stopPropagation(); this.setState({ lightboxImage: catImage, lightboxLabel: it.name }); }
         };
@@ -516,13 +540,22 @@ class Component extends DCLogic {
       hdrClass: this.state.scrolled ? 'hdr-stuck' : '',
       toggleMenu: () => this.setState({ menuOpen: !this.state.menuOpen }),
       loginErr: this.state.loginErr, loginU: this.state.loginU, loginP: this.state.loginP,
-      fName: this.state.fName, fPrice: this.state.fPrice, fDesc: this.state.fDesc,
+      fName: this.state.fName, fPrice: this.state.fPrice, fDesc: this.state.fDesc, fNote: this.state.fNote,
       modeLabel: preview ? 'Admin — viewing as guest' : 'Admin mode',
       previewLabel: preview ? 'Back to editing' : 'Preview guest view',
       dotColor: preview ? '#8f867a' : '#7fae7a',
       onName: (e) => this.setState({ fName: e.target.value }),
       onPrice: (e) => this.setState({ fPrice: e.target.value }),
       onDesc: (e) => this.setState({ fDesc: e.target.value }),
+      onNote: (e) => this.setState({ fNote: e.target.value }),
+      saveNote: () => {
+        const ci = this.state.editingNote;
+        const cats2 = this.mutate(m => {
+          const note = this.state.fNote.trim();
+          if (note) m[ci].note = note; else delete m[ci].note;
+        });
+        this.setKeep({ cats: cats2, editingNote: null });
+      },
       saveItem: () => {
         const [ci, ii] = this.state.editing;
         const cats2 = this.mutate(m => {
@@ -532,7 +565,7 @@ class Component extends DCLogic {
         });
         this.setKeep({ cats: cats2, editing: null });
       },
-      cancelEdit: () => this.setKeep({ editing: null }),
+      cancelEdit: () => this.setKeep({ editing: null, editingNote: null }),
       deleteItem: () => {
         const [ci, ii] = this.state.editing;
         const cats2 = this.mutate(m => m[ci].items.splice(ii, 1));

@@ -3,7 +3,7 @@
 // Pizza / Calzones / Pasta / Desserts are PLACEHOLDERS — need photos of the menu's other panels.
 export const MENU_VERSION = 5;
 export const MENU = [
-  { title: "Salads", note: "Individually prepared to order. Choice of Famous Original House, Ranch, Blue Cheese, Caesar, Balsamic Vinaigrette or Honey Raspberry Vinaigrette. Extra dressing $1.99", items: [
+  { title: "Salads", note: "Individually prepared to order. Choice of Famous Original House, Ranch, Blue Cheese, Caesar, Balsamic Vinaigrette or Honey Raspberry Vinaigrette. Extra dressing $1.50", items: [
     { name: "Tossed Salad", price: "$5.65", desc: "A small side salad with lettuce, tomatoes and cucumbers." },
     { name: "Cranberry Chicken Salad", price: "$13.45", desc: "Spring mix, chicken, cranberries, walnuts, tomatoes, Blue cheese crumbles and Honey Raspberry Vinaigrette dressing." },
     { name: "Crispy Fried Chicken Salad", price: "$12.95", desc: "Lettuce, chicken, tomatoes, cucumbers, Mozzarella & Cheddar cheeses and bacon bits." },
@@ -75,7 +75,7 @@ export const MENU = [
     { name: "Chicken Calzone", price: "$13.55", desc: "" },
     { name: "Spinach Calzone", price: "$13.25", desc: "" }
   ]},
-  { title: "Pasta Dinners", note: "Served with Floridino's Famous Breadsticks. Add a House Salad only $4.75 or extra sauce $1.50.", items: [
+  { title: "Pasta Dinners", note: "Served with Floridino's Famous Breadsticks. Add a House Salad only $5.25 or extra sauce $1.50.", items: [
     { name: "Sundried Tomato Penne Pasta", price: "$13.75", desc: "Penne pasta, sundried tomatoes, gourmet garlic sauce, chicken, fresh basil, spinach and Parmesan cheese." },
     { name: "Spaghetti or Penne with Meatball", price: "$11.65", desc: "Baked with cheese $12.95." },
     { name: "Ravioli with Meatball", price: "$12.95", desc: "Baked with cheese." },
@@ -160,7 +160,7 @@ export const MENU = [
     { name: "Tiramisu", price: "$6.95", desc: "" },
     { name: "Assorted Desserts", price: "$6.95", desc: "In front case." }
   ]},
-  { title: "Full Bar", note: "Happy Hour: Mon\u2013Fri 4pm\u20139pm \u00b7 Sat & Sun Happy Hour ALL DAY! Domestic drafts $2.95 \u2013 16 oz.", items: [
+  { title: "Full Bar", note: "Happy Hour: Mon\u2013Fri 4pm\u20139pm \u00b7 Sat & Sun Happy Hour ALL DAY! Domestic drafts $3.25 \u2013 16 oz.", items: [
     { name: "Bud Light on Tap", price: "$3.25 / $11.85", desc: "Glass / Pitcher." },
     { name: "Michelob Ultra", price: "$3.75 / $12.45", desc: "Glass / Pitcher." },
     { name: "Miller Lite", price: "$3.55 / $11.85", desc: "Glass / Pitcher." },
